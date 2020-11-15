@@ -22,29 +22,82 @@ To use this widget,
 
 ### Example
 ``` dart 
-    final onboardingPagesList = [
-        PageModel(
-            assetPath: 'assets/images/facebook.png',
-            title: 'SECURED BACKUP',
-            info: "Keep your files in closed safe so you can't lose them",
-        ),
-        PageModel(
-            assetPath: 'assets/images/twitter.png',
-            title: 'CHANGE AND RISE',
-            info: 'Give others access to any file or folder you choose',
-        ),
-        PageModel(
-            assetPath: 'assets/images/instagram.png',
-            title: 'EASY ACCESS',
-            info: 'Reach your files anytime from any devices anywhere',
-        ),
-        PageModel(
-            assetPath: 'assets/images/twitter.png',
-            title: 'SHARE AND SHINE',
-            info: 'Give others access to any file or folder you choose',
-        ),
-    ];
+    class MyApp extends StatelessWidget {
+      final onboardingPagesList = [
+          PageModel(
+              assetPath: 'assets/images/facebook.png',
+              title: 'SECURED BACKUP',
+              info: "Keep your files in closed safe so you can't lose them",
+          ),
+          PageModel(
+              assetPath: 'assets/images/twitter.png',
+              title: 'CHANGE AND RISE',
+              info: 'Give others access to any file or folder you choose',
+          ),
+          PageModel(
+              assetPath: 'assets/images/instagram.png',
+              title: 'EASY ACCESS',
+              info: 'Reach your files anytime from any devices anywhere',
+          ),
+          PageModel(
+              assetPath: 'assets/images/twitter.png',
+              title: 'SHARE AND SHINE',
+              info: 'Give others access to any file or folder you choose',
+          ),
+      ];
+      
+      @override
+      Widget build(BuildContext context) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: Onboarding(
+            proceedButtonStyle: ProceedButtonStyle(
+                proceedButtonRoute: (context) {
+                  return Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Container(),
+                    ),
+                    (route) => false,
+                  );
+                },
+                proceedButtonText: 'Sign up',
+            ),
+            pages: onboardingPagesList,
+            indicator: Indicator(
+              indicatorDesign: IndicatorDesign.line(
+                lineDesign: LineDesign(
+                  lineType: DesignType.line_uniform,
+                ),
+              ),
+            ),
+            //-------------Other properties--------------
+            //background,
+            //pagesContentPadding,
+            //pagesImageColor,
+            //titleAndInfoPadding,
+            //titleAndInfoHeight,
+            //titleStyle,
+            //infoStyle,
+            //infoPadding,
+            //footerPadding,
+            //skipButtonStyle,
+          ),
+        );
+      }
+    }
+    
+```
+### Display
 
+Sample examples of using different indicator types 
+
+``` dart
     Onboarding(
         proceedButtonStyle: ProceedButtonStyle(
             proceedButtonRoute: (context) {
@@ -56,8 +109,7 @@ To use this widget,
                 (route) => false,
               );
             },
-            proceedButtonText: 'Sign up',
-        ),
+            proceedButtonText: 'Sign Up'),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(
@@ -66,19 +118,164 @@ To use this widget,
             ),
           ),
         ),
-        //-------------Other properties--------------
-        //background,
-        //pagesContentPadding,
-        //pagesImageColor,
-        //titleAndInfoPadding,
-        //titleAndInfoHeight,
-        //titleStyle,
-        //infoStyle,
-        //infoPadding,
-        //footerPadding,
-        //skipButtonStyle,
-      ),
-```
-### Display
+      )
 
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/onboarding.gif" width=400>
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/1.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.line(
+            lineDesign: LineDesign(
+              lineType: DesignType.line_nonuniform,
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/2.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+              polygon: DesignType.polygon_arrow,
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/3.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+              polygon: DesignType.polygon_circle,
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/4.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+              polygon: DesignType.polygon_diamond,
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/5.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+              polygon: DesignType.polygon_pentagon,
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/6.gif" width=400>
+
+``` dart
+    Onboarding(
+        proceedButtonStyle: ProceedButtonStyle(
+            proceedButtonRoute: (context) {
+              return Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Container(),
+                ),
+                (route) => false,
+              );
+            },
+            proceedButtonText: 'Sign Up'),
+        pages: onboardingPagesList,
+        indicator: Indicator(
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+              polygon: DesignType.polygon_square,
+              polygonSpacer: 14.0
+            ),
+          ),
+        ),
+      )
+
+```
+<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/7.gif" width=400>
