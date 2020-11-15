@@ -15,7 +15,7 @@ const defaultSkipButtonTextStyle =
 
 //--------Proceed Button---------
 
-const defaultProceedButtonColor = Color.fromARGB(255,88,94,147);
+const defaultProceedButtonColor = Color.fromARGB(255, 88, 94, 147);
 const defaultProceedButtonBorderRadius =
     BorderRadius.all(Radius.circular(20.0));
 const defaultProceedButtonPadding =

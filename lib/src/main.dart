@@ -10,27 +10,43 @@ import 'views/indicator.dart';
 import 'views/page.dart';
 
 class Onboarding extends StatefulWidget {
+  ///Change the background of the overall theme. Note that the default is [background = const Color.fromARGB(255, 35, 35, 35)]
   final Color background;
 
+  ///Add pages that are displayed
   final List<PageModel> pages;
 
+  ///Add padding to each of the individual [pages]. Note that the default is [pagesContentPadding = const EdgeInsets.only(top: 45.0, left: 45.0, right: 45.0)]
   final EdgeInsets pagesContentPadding;
 
+  ///Add color to the images of each page's images. Note that the default is [pagesImageColor = const Color.fromARGB(255, 212, 212, 212)]
   final Color pagesImageColor;
 
+  ///Add padding to the title and info container. Note that the default is [titleAndInfoPadding = const EdgeInsets.only(top: 45.0)]
   final EdgeInsets titleAndInfoPadding;
+
+  ///Add height to the container holding the title and info. Note that the default is [titleAndInfoHeight = 210.0]
   final double titleAndInfoHeight;
+
+  ///Add styling to the text of the title. Note that the default is [titleStyle = const TextStyle(fontSize: 23.0,wordSpacing: 1,letterSpacing: 1.2, fontWeight: FontWeight.bold, color: Colors.white)]
   final TextStyle titleStyle;
 
+  ///Add styling to the text of the info. Note that the default is [infoStyle = const TextStyle(color: Colors.white,letterSpacing: 0.7,height: 1.5,)]
   final TextStyle infoStyle;
+
+  ///Add padding to the info container. Note that the default is [infoPadding = const EdgeInsets.only(top: 7.0)]
   final EdgeInsets infoPadding;
 
+  ///Add padding to the container of indicator widget, skip button, and proceeding button. Note that the default is [const EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0)]
   final EdgeInsets footerPadding;
 
+  ///Add an indicator widget because it is [required]. This widget gives you a ranch of choice to pick from [DesignType] such as [polygon_diamond],[polygon_arrow],[polygon_pentagon],[polygon_square],[polygon_circle],[line_uniform],[line_nonuniform]
   final Indicator indicator;
 
+  ///Add styling to the skip button
   final SkipButtonStyle skipButtonStyle;
 
+  ///Add a proceeding button [required] after the user reaches the end of the last page in the [pages] you provided
   final ProceedButtonStyle proceedButtonStyle;
 
   const Onboarding({
