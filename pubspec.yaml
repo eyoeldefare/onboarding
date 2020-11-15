@@ -1,6 +1,6 @@
 name: onboarding
-description: Onboarding for flutter 
-version: 1.0.1
+description: Onboarding landing widget for flutter applications.
+version: 1.0.2
 homepage: https://github.com/eyoeldefare/onboarding
 
 environment:
