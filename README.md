@@ -12,13 +12,13 @@ I like to thank dribble.com and the artist that designed the art work for inspir
 
 ## Getting Started
 
-To start using this widget, you will need to first import the package inside your project following the installation guide found on [Flutter.dev](https://flutter.dev).
+To start using this widget, you will need to first import the package inside your project following the installation guide found on [peb.dev/packages/onboarding](https://pub.dev/packages/onboarding).
 
 ## Usage
 
 To use this widget, 
 1. `import 'package:onboarding/onboarding.dart'; ` inside your dart file
-2. Follow the example found at the [`main.dart`](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main.dart) and implement it in your app. 
+2. Follow the example found at the [`main.dart`](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main.dart) of the example and implement it in your app. 
 
 ### Example
 ``` dart 
