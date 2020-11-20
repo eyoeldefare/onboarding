@@ -121,7 +121,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/1.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/1.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -147,7 +147,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/2.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/2.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -173,7 +173,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/3.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/3.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -199,7 +199,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/4.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/4.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -225,7 +225,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/5.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/5.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -251,7 +251,7 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/6.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/6.gif" width=300>
 
 ``` dart
     Onboarding(
@@ -278,4 +278,4 @@ Sample examples of using different indicator types
       )
 
 ```
-<img src="https://github.com/eyoeldefare/onboarding/blob/main/images/7.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/7.gif" width=300>
