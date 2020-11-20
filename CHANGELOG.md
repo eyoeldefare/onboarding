@@ -1,3 +1,8 @@
+## [1.0.4] - 11/19/2020.
+
+* Change the images in the document to show raw image data
+* Format the pubspec file for dart guidelines
+
 ## [1.0.3] - 11/15/2020.
 
 * Minor doc formating and spelling changes
