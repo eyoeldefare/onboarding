@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'models/indicator_model.dart';
 import 'models/page_model.dart';
-import 'models/proceed_button_model.dart';
+import 'models/button_model.dart';
 import 'utils/constants_util.dart';
 import 'views/indicator.dart';
 import 'views/page.dart';
