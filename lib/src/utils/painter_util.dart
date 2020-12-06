@@ -35,8 +35,10 @@ class ShapePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
+  bool shouldRepaint(covariant ShapePainter oldDelegate) {
+    return oldDelegate.indicator != this.indicator ||
+        oldDelegate.netDragPercent != this.netDragPercent ||
+        oldDelegate.pagesLength != this.pagesLength;
   }
 
   void _createUniformLine(Canvas canvas) {
