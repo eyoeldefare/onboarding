@@ -3,16 +3,20 @@
 This is a sample flutter onboarding plugin you use to attract first-time users when they land on your page, hence the name onboarding. You can implement this widget anyhow you want in your app, by managing its top-level state to show the widget to users at the appropriate time. There are also many parameters that enable you to design this widget to your liking.
 
 ## Environment
+
 `sdk: ">=2.7.0 <3.0.0"`
+
 `flutter: ">=1.17.0 <2.0.0"`
-
-## Thanks...
-
-I like to thank dribble.com and the artist that designed the art work for inspiring me to create this widget. (Unfortunately, I don't remember the exact name of the artist)
 
 ## Getting Started
 
 To start using this widget, you will need to first import the package inside your project following the installation guide found on [peb.dev/packages/onboarding](https://pub.dev/packages/onboarding).
+
+```yaml 
+  dependencies:
+    onboarding: ^1.0.5
+```
+`$ flutter pub get`
 
 ## Usage
 

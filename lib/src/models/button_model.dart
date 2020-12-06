@@ -17,6 +17,7 @@ class SkipButtonStyle {
 
 class ProceedButtonStyle {
   final Color proceedButtonColor;
+
   ///Your navigation route logic to a new page like login or register
   ///Eg: [Navigator.pushNamed(context, '/login');], [Navigator.push()], etc
   final dynamic Function(BuildContext context) proceedButtonRoute;

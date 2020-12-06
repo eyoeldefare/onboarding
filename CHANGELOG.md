@@ -1,3 +1,11 @@
+## [1.0.5] - 12/5/2020.
+
+* Update painter to repain when new instance of the widget is created instead instead of always repainting
+* Change the file for button models to represent all models
+* Make page model properties to not be null
+* Change the procceed button type from Object to dynamic and update documentation on the property
+
+
 ## [1.0.4] - 11/19/2020.
 
 * Change the images in the document to show raw image data
