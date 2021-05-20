@@ -4,6 +4,25 @@ import 'package:flutter/material.dart';
 
 const animationDuration = Duration(milliseconds: 200);
 
+//---------Onboarding------------
+const background = Color.fromARGB(255, 35, 35, 35);
+const footerPadding = EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0);
+const pageContentPadding = EdgeInsets.only(top: 45.0, left: 45.0, right: 45.0);
+const pageImageColor = Color.fromARGB(255, 212, 212, 212);
+const pageTitleStyle = TextStyle(
+  fontSize: 23.0,
+  wordSpacing: 1,
+  letterSpacing: 1.2,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+const pageInfoStyle = TextStyle(
+  color: Colors.white,
+  letterSpacing: 0.7,
+  height: 1.5,
+);
+const titleAndInfoPadding = EdgeInsets.only(bottom: 45);
+
 //---------Skip button-----------
 
 const defaultSkipButtonColor = Color.fromARGB(255, 93, 93, 93);

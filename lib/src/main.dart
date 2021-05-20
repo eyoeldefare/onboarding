@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'models/indicator_model.dart';
 import 'models/page_model.dart';
 import 'models/button_model.dart';
-import 'utils/constants_util.dart';
+import 'utils/constants_util.dart' as util;
 import 'views/indicator.dart';
 import 'views/page.dart';
 
@@ -19,23 +19,11 @@ class Onboarding extends StatefulWidget {
   ///Add padding to each of the individual [pages]. Note that the default is [pagesContentPadding = const EdgeInsets.only(top: 45.0, left: 45.0, right: 45.0)]
   final EdgeInsets pagesContentPadding;
 
-  ///Add color to the images of each page's images. Note that the default is [pagesImageColor = const Color.fromARGB(255, 212, 212, 212)]
-  final Color pagesImageColor;
-
   ///Add padding to the title and info container. Note that the default is [titleAndInfoPadding = const EdgeInsets.only(top: 45.0)]
   final EdgeInsets titleAndInfoPadding;
 
-  ///Add height to the container holding the title and info. Note that the default is [titleAndInfoHeight = 210.0]
-  final double titleAndInfoHeight;
-
-  ///Add styling to the text of the title. Note that the default is [titleStyle = const TextStyle(fontSize: 23.0,wordSpacing: 1,letterSpacing: 1.2, fontWeight: FontWeight.bold, color: Colors.white)]
-  final TextStyle titleStyle;
-
   ///Add styling to the text of the info. Note that the default is [infoStyle = const TextStyle(color: Colors.white,letterSpacing: 0.7,height: 1.5,)]
   final TextStyle infoStyle;
-
-  ///Add padding to the info container. Note that the default is [infoPadding = const EdgeInsets.only(top: 7.0)]
-  final EdgeInsets infoPadding;
 
   ///Add padding to the container of indicator widget, skip button, and proceeding button. Note that the default is [const EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0)]
   final EdgeInsets footerPadding;
@@ -51,31 +39,15 @@ class Onboarding extends StatefulWidget {
 
   const Onboarding({
     Key key,
-    this.background = const Color.fromARGB(255, 35, 35, 35),
+    this.background = util.background,
     @required this.pages,
     @required this.indicator,
     @required this.proceedButtonStyle,
     this.skipButtonStyle = const SkipButtonStyle(),
-    this.footerPadding =
-        const EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0),
-    this.pagesContentPadding =
-        const EdgeInsets.only(top: 45.0, left: 45.0, right: 45.0),
-    this.pagesImageColor = const Color.fromARGB(255, 212, 212, 212),
-    this.titleAndInfoPadding = const EdgeInsets.only(top: 45.0),
-    this.titleAndInfoHeight = 210.0,
-    this.titleStyle = const TextStyle(
-      fontSize: 23.0,
-      wordSpacing: 1,
-      letterSpacing: 1.2,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    this.infoStyle = const TextStyle(
-      color: Colors.white,
-      letterSpacing: 0.7,
-      height: 1.5,
-    ),
-    this.infoPadding = const EdgeInsets.only(top: 7.0),
+    this.footerPadding = util.footerPadding,
+    this.pagesContentPadding = util.pageContentPadding,
+    this.titleAndInfoPadding = util.titleAndInfoPadding,
+    this.infoStyle,
   }) : super(key: key);
 
   @override
@@ -127,8 +99,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     );
   }
 
-  void _initButtons() {
-    final pagesLength = widget.pages.length;
+  void _initButtons(int pagesLength) {
     final index = (_netDragDistancePercent / (1 / pagesLength)).round();
 
     if (index >= pagesLength - 1) {
@@ -175,7 +146,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     super.initState();
     _netDragDistancePercent = 0.0;
     _animationController = AnimationController(
-      duration: animationDuration,
+      duration: util.animationDuration,
       animationBehavior: AnimationBehavior.preserve,
       vsync: this,
     );
@@ -207,12 +178,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         pagesLength: _pagesLength,
         background: widget.background,
         pagesPadding: widget.pagesContentPadding,
-        pagesImageColor: widget.pagesImageColor,
         titleAndInfoPadding: widget.titleAndInfoPadding,
-        titleAndInfoHeight: widget.titleAndInfoHeight,
-        titleStyle: widget.titleStyle,
-        infoStyle: widget.infoStyle,
-        infoPadding: widget.infoPadding,
       );
     }).toList();
   }
@@ -220,7 +186,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final _pagesLength = widget.pages.length;
-    _initButtons();
+    _initButtons(_pagesLength);
     return Scaffold(
       body: GestureDetector(
         onHorizontalDragStart: _onHorizontalDragStart,

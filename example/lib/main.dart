@@ -8,24 +8,36 @@ void main() {
 class MyApp extends StatelessWidget {
   final onboardingPagesList = [
     PageModel(
-      assetPath: 'assets/images/facebook.png',
-      title: 'SECURED BACKUP',
-      info: "Keep your files in closed safe so you can't lose them",
+      image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+      title: Text('SECURED BACKUP', style: pageTitleStyle),
+      info: Text(
+        'Keep your files in closed safe so you can\'t lose them',
+        style: pageInfoStyle,
+      ),
     ),
     PageModel(
-      assetPath: 'assets/images/twitter.png',
-      title: 'CHANGE AND RISE',
-      info: 'Give others access to any file or folder you choose',
+      image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+      title: Text('CHANGE AND RISE', style: pageTitleStyle),
+      info: Text(
+        'Give others access to any file or folder you choose',
+        style: pageInfoStyle,
+      ),
     ),
     PageModel(
-      assetPath: 'assets/images/instagram.png',
-      title: 'EASY ACCESS',
-      info: 'Reach your files anytime from any devices anywhere',
+      image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+      title: Text('EASY ACCESS', style: pageTitleStyle),
+      info: Text(
+        'Reach your files anytime from any devices anywhere',
+        style: pageInfoStyle,
+      ),
     ),
     PageModel(
-      assetPath: 'assets/images/twitter.png',
-      title: 'SHARE AND SHINE',
-      info: 'Give others access to any file or folder you choose',
+      image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+      title: Text('SHARE AND SHINE', style: pageTitleStyle),
+      info: Text(
+        'Give others access to any file or folder you choose',
+        style: pageInfoStyle,
+      ),
     ),
   ];
 

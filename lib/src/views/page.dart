@@ -9,12 +9,7 @@ class OnboardPage extends StatelessWidget {
 
   final Color background;
   final EdgeInsets pagesPadding;
-  final Color pagesImageColor;
   final EdgeInsets titleAndInfoPadding;
-  final double titleAndInfoHeight;
-  final TextStyle titleStyle;
-  final TextStyle infoStyle;
-  final EdgeInsets infoPadding;
 
   const OnboardPage({
     Key key,
@@ -24,12 +19,7 @@ class OnboardPage extends StatelessWidget {
     this.pagesLength,
     this.dragPercent,
     this.pagesPadding,
-    this.pagesImageColor,
     this.titleAndInfoPadding,
-    this.titleAndInfoHeight,
-    this.titleStyle,
-    this.infoStyle,
-    this.infoPadding,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -44,31 +34,14 @@ class OnboardPage extends StatelessWidget {
         padding: pagesPadding,
         child: Column(
           children: [
-            Expanded(
-              child: Image.asset(
-                pageModel.assetPath,
-                color: pagesImageColor,
-              ),
-            ),
+            Expanded(child: pageModel.image),
             Container(
+              // color: Colors.red,
               padding: titleAndInfoPadding,
               width: double.infinity,
-              height: titleAndInfoHeight,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    pageModel.title,
-                    style: titleStyle,
-                  ),
-                  Padding(
-                    padding: infoPadding,
-                    child: Text(
-                      pageModel.info,
-                      style: infoStyle,
-                    ),
-                  ),
-                ],
+                children: [pageModel.title, pageModel.info],
               ),
             ),
           ],
