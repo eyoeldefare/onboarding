@@ -36,7 +36,6 @@ class OnboardPage extends StatelessWidget {
           children: [
             Expanded(child: pageModel.image),
             Container(
-              // color: Colors.red,
               padding: titleAndInfoPadding,
               width: double.infinity,
               child: Column(

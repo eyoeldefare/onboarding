@@ -22,9 +22,6 @@ class Onboarding extends StatefulWidget {
   ///Add padding to the title and info container. Note that the default is [titleAndInfoPadding = const EdgeInsets.only(top: 45.0)]
   final EdgeInsets titleAndInfoPadding;
 
-  ///Add styling to the text of the info. Note that the default is [infoStyle = const TextStyle(color: Colors.white,letterSpacing: 0.7,height: 1.5,)]
-  final TextStyle infoStyle;
-
   ///Add padding to the container of indicator widget, skip button, and proceeding button. Note that the default is [const EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0)]
   final EdgeInsets footerPadding;
 
@@ -47,7 +44,6 @@ class Onboarding extends StatefulWidget {
     this.footerPadding = util.footerPadding,
     this.pagesContentPadding = util.pageContentPadding,
     this.titleAndInfoPadding = util.titleAndInfoPadding,
-    this.infoStyle,
   }) : super(key: key);
 
   @override

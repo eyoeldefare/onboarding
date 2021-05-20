@@ -15,7 +15,6 @@ class SkipButtonStyle {
       'Skip',
       style: defaultSkipButtonTextStyle,
     ),
-    //this.skipButtonTextStyle = defaultSkipButtonTextStyle,
   });
 }
 

@@ -1,3 +1,6 @@
+## [1.0.6] - 5/20/2021.
+* Fixed issue #1 and #2-> this allows more customization
+
 ## [1.0.5] - 12/5/2020.
 
 * Update painter to repain when new instance of the widget is created instead instead of always repainting

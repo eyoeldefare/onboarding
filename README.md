@@ -6,7 +6,7 @@ This is a sample flutter onboarding plugin you use to attract first-time users w
 
 `sdk: ">=2.7.0 <3.0.0"`
 
-`flutter: ">=1.17.0 <2.0.0"`
+`flutter: ">=1.17.0"`
 
 ## Getting Started
 
@@ -14,7 +14,7 @@ To start using this widget, you will need to first import the package inside you
 
 ```yaml 
   dependencies:
-    onboarding: ^1.0.5
+    onboarding: ^1.0.6
 ```
 `$ flutter pub get`
 
@@ -29,24 +29,36 @@ To use this widget,
     class MyApp extends StatelessWidget {
       final onboardingPagesList = [
           PageModel(
-              assetPath: 'assets/images/facebook.png',
-              title: 'SECURED BACKUP',
-              info: "Keep your files in closed safe so you can't lose them",
+            image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+            title: Text('SECURED BACKUP', style: pageTitleStyle),
+            info: Text(
+              'Keep your files in closed safe so you can\'t lose them',
+              style: pageInfoStyle,
+            ),
           ),
           PageModel(
-              assetPath: 'assets/images/twitter.png',
-              title: 'CHANGE AND RISE',
-              info: 'Give others access to any file or folder you choose',
+            image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+            title: Text('CHANGE AND RISE', style: pageTitleStyle),
+            info: Text(
+              'Give others access to any file or folder you choose',
+              style: pageInfoStyle,
+            ),
           ),
           PageModel(
-              assetPath: 'assets/images/instagram.png',
-              title: 'EASY ACCESS',
-              info: 'Reach your files anytime from any devices anywhere',
+            image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+            title: Text('EASY ACCESS', style: pageTitleStyle),
+            info: Text(
+              'Reach your files anytime from any devices anywhere',
+              style: pageInfoStyle,
+            ),
           ),
           PageModel(
-              assetPath: 'assets/images/twitter.png',
-              title: 'SHARE AND SHINE',
-              info: 'Give others access to any file or folder you choose',
+            image: Image.asset('assets/images/twitter.png', color: pageImageColor),
+            title: Text('SHARE AND SHINE', style: pageTitleStyle),
+            info: Text(
+              'Give others access to any file or folder you choose',
+              style: pageInfoStyle,
+            ),
           ),
       ];
       
@@ -70,7 +82,6 @@ To use this widget,
                     (route) => false,
                   );
                 },
-                proceedButtonText: 'Sign up',
             ),
             pages: onboardingPagesList,
             indicator: Indicator(
@@ -81,16 +92,11 @@ To use this widget,
               ),
             ),
             //-------------Other properties--------------
-            //background,
-            //pagesContentPadding,
-            //pagesImageColor,
-            //titleAndInfoPadding,
-            //titleAndInfoHeight,
-            //titleStyle,
-            //infoStyle,
-            //infoPadding,
-            //footerPadding,
-            //skipButtonStyle,
+            //Color background,
+            //EdgeInsets pagesContentPadding
+            //EdgeInsets titleAndInfoPadding
+            //EdgeInsets footerPadding
+            //SkipButtonStyle skipButtonStyle
           ),
         );
       }
@@ -112,8 +118,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(
@@ -138,8 +143,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(
@@ -164,8 +168,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
@@ -190,8 +193,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
@@ -216,8 +218,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
@@ -242,8 +243,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
@@ -268,8 +268,7 @@ Sample examples of using different indicator types
                 ),
                 (route) => false,
               );
-            },
-            proceedButtonText: 'Sign Up'),
+            }),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
