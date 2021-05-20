@@ -40,16 +40,16 @@ class MyApp extends StatelessWidget {
       ),
       home: Onboarding(
         proceedButtonStyle: ProceedButtonStyle(
-            proceedButtonRoute: (context) {
-              return Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Container(),
-                ),
-                (route) => false,
-              );
-            },
-            proceedButtonText: 'Sign Up'),
+          proceedButtonRoute: (context) {
+            return Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Container(),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         pages: onboardingPagesList,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(

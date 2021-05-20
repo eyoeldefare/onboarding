@@ -104,12 +104,8 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
           });
         },
         child: Padding(
-          padding: widget.skipButtonStyle.skipButtonPadding,
-          child: Text(
-            'Skip',
-            style: widget.skipButtonStyle.skipButtonTextStyle,
-          ),
-        ),
+            padding: widget.skipButtonStyle.skipButtonPadding,
+            child: widget.skipButtonStyle.skipButtonText),
       ),
     );
   }
@@ -125,10 +121,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         },
         child: Padding(
           padding: widget.proceedButtonStyle.proceedButtonPadding,
-          child: Text(
-            widget.proceedButtonStyle.proceedButtonText,
-            style: widget.proceedButtonStyle.proceedButtonTextStyle,
-          ),
+          child: widget.proceedButtonStyle.proceedpButtonText,
         ),
       ),
     );
