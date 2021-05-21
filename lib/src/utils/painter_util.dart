@@ -14,9 +14,9 @@ class ShapePainter extends CustomPainter {
   final Path path2 = Path();
 
   ShapePainter({
-    this.indicator,
-    this.netDragPercent,
-    this.pagesLength,
+    required this.indicator,
+    required this.netDragPercent,
+    required this.pagesLength,
   }) {
     painter1.color = this.indicator.activeIndicator.color;
     painter1.strokeWidth = this.indicator.activeIndicator.borderWidth;
@@ -43,7 +43,7 @@ class ShapePainter extends CustomPainter {
 
   void _createUniformLine(Canvas canvas) {
     //Painter 1
-    final width = this.indicator.indicatorDesign.lineDesign.lineWidth;
+    final width = this.indicator.indicatorDesign.lineDesign!.lineWidth;
     final painter1LineWidth = width * pagesLength;
     final painter1Offset1 = Offset(0.0, 0.0);
     final painter1Offset2 = Offset(painter1LineWidth, 0.0);
@@ -58,8 +58,8 @@ class ShapePainter extends CustomPainter {
   }
 
   void _createLine(Canvas canvas, int indexer, Paint paint) {
-    var width = this.indicator.indicatorDesign.lineDesign.lineWidth;
-    var spacer = this.indicator.indicatorDesign.lineDesign.lineSpacer;
+    var width = this.indicator.indicatorDesign.lineDesign!.lineWidth;
+    var spacer = this.indicator.indicatorDesign.lineDesign!.lineSpacer;
     for (int i = 0; i <= indexer; i++) {
       final offset1 = Offset(i * spacer, 0.0);
       final offset2 = Offset(offset1.dx + width, 0.0);
@@ -69,8 +69,8 @@ class ShapePainter extends CustomPainter {
 
   void _createPolygon(Path path, int sides, int indexer,
       {bool rotate = false}) {
-    var radius = this.indicator.indicatorDesign.polygonDesign.polygonRadius;
-    var spacer = this.indicator.indicatorDesign.polygonDesign.polygonSpacer;
+    var radius = this.indicator.indicatorDesign.polygonDesign!.polygonRadius;
+    var spacer = this.indicator.indicatorDesign.polygonDesign!.polygonSpacer;
     final angle = (math.pi * 2) / sides;
     final offset2 = Offset(radius * math.cos(0.0), radius * math.sin(0.0));
     for (int m = 0; m <= indexer; m++) {
@@ -91,7 +91,7 @@ class ShapePainter extends CustomPainter {
 
     final indicatorType =
         this.indicator.indicatorDesign.polygonDesign?.polygon ??
-            this.indicator.indicatorDesign.lineDesign.lineType;
+            this.indicator.indicatorDesign.lineDesign!.lineType;
 
     switch (indicatorType) {
       case DesignType.polygon_circle:
@@ -125,7 +125,6 @@ class ShapePainter extends CustomPainter {
         break;
       default:
         return;
-        break;
     }
     canvas.drawPath(path1, painter1);
     canvas.drawPath(path2, painter2);

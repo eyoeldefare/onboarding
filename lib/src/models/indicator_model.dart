@@ -22,12 +22,12 @@ class Indicator {
   final IndicatorDesign indicatorDesign;
 
   Indicator({
-    @required this.indicatorDesign,
+    required this.indicatorDesign,
     this.activeIndicator =
         const ActiveIndicator(color: Colors.grey, borderWidth: 0.7),
     this.closedIndicator =
         const ClosedIndicator(color: Colors.white, borderWidth: 0.7),
-  }) : assert(indicatorDesign != null);
+  });
 }
 
 class ActiveIndicator {
@@ -46,22 +46,20 @@ class ClosedIndicator {
 
 ///You can choose between a polygon or a straight line for your design choice of your indicator
 class IndicatorDesign {
-  final PolygonDesign _polygonDesign;
-  final LineDesign _lineDesign;
+  final PolygonDesign? _polygonDesign;
+  final LineDesign? _lineDesign;
 
-  PolygonDesign get polygonDesign => _polygonDesign;
+  PolygonDesign? get polygonDesign => _polygonDesign;
 
-  LineDesign get lineDesign => _lineDesign;
+  LineDesign? get lineDesign => _lineDesign;
 
   //Constructor
-  const IndicatorDesign.polygon({PolygonDesign polygonDesign})
-      : assert(polygonDesign != null),
-        this._polygonDesign = polygonDesign,
+  const IndicatorDesign.polygon({required PolygonDesign polygonDesign})
+      : this._polygonDesign = polygonDesign,
         this._lineDesign = null;
 
-  const IndicatorDesign.line({LineDesign lineDesign})
-      : assert(lineDesign != null),
-        this._polygonDesign = null,
+  const IndicatorDesign.line({required LineDesign lineDesign})
+      : this._polygonDesign = null,
         this._lineDesign = lineDesign;
 }
 
@@ -76,11 +74,10 @@ class PolygonDesign {
   final double polygonSpacer;
 
   const PolygonDesign({
-    @required this.polygon,
+    required this.polygon,
     this.polygonRadius = 7.0,
     this.polygonSpacer = 21.0,
-  })  : assert(polygon != null),
-        assert(
+  }) : assert(
             polygon != DesignType.line_nonuniform ||
                 polygon != DesignType.line_uniform,
             "polygon can not be 'DesignType.line' or 'DesignType.uniform_line'");
@@ -97,9 +94,8 @@ class LineDesign {
   final double lineSpacer;
 
   const LineDesign(
-      {@required this.lineType, this.lineWidth = 19.0, this.lineSpacer = 35.0})
-      : assert(lineType != null),
-        assert(
+      {required this.lineType, this.lineWidth = 19.0, this.lineSpacer = 35.0})
+      : assert(
             lineType == DesignType.line_nonuniform ||
                 lineType == DesignType.line_uniform,
             "lineType can only be either DesignType.uniform_line or DesignType.line");

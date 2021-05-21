@@ -1,3 +1,7 @@
+
+## [1.1.0] - 5/21/2021.
+* Fixes and migration to null-safety
+
 ## [1.0.6] - 5/20/2021.
 * Fixed issue #1 and #2-> this allows more customization
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constants_util.dart';
+import '../utils/constant_util.dart';
 
 class SkipButtonStyle {
   final Color skipButtonColor;
@@ -31,10 +31,10 @@ class ProceedButtonStyle {
     this.proceedButtonColor = defaultProceedButtonColor,
     this.proceedButtonBorderRadius = defaultProceedButtonBorderRadius,
     this.proceedButtonPadding = defaultProceedButtonPadding,
-    @required this.proceedButtonRoute,
+    required this.proceedButtonRoute,
     this.proceedpButtonText = const Text(
       'Sign up',
       style: defaultProceedButtonTextStyle,
     ),
-  }) : assert(proceedButtonRoute != null);
+  });
 }

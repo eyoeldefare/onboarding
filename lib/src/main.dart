@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'models/indicator_model.dart';
 import 'models/page_model.dart';
 import 'models/button_model.dart';
-import 'utils/constants_util.dart' as util;
+import 'utils/constant_util.dart' as util;
 import 'views/indicator.dart';
 import 'views/page.dart';
 
@@ -35,11 +35,11 @@ class Onboarding extends StatefulWidget {
   final ProceedButtonStyle proceedButtonStyle;
 
   const Onboarding({
-    Key key,
+    Key? key,
     this.background = util.background,
-    @required this.pages,
-    @required this.indicator,
-    @required this.proceedButtonStyle,
+    required this.pages,
+    required this.indicator,
+    required this.proceedButtonStyle,
     this.skipButtonStyle = const SkipButtonStyle(),
     this.footerPadding = util.footerPadding,
     this.pagesContentPadding = util.pageContentPadding,
@@ -51,22 +51,22 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
-  double _netDragDistancePercent;
-  double _dragStartPercent;
-  double _finishedDragStartPercent, _finishedDragEndPercent;
-  Offset _dragStartPosition;
-  AnimationController _animationController;
-  Material _button;
+  late double _netDragDistancePercent;
+  late double _dragStartPercent;
+  late double _finishedDragStartPercent, _finishedDragEndPercent;
+  late Offset _dragStartPosition;
+  AnimationController? _animationController;
+  Material? _button;
 
   Material get _skipButton {
-    final _pagesLength = widget.pages.length;
+    final int _pagesLength = widget.pages.length;
     return Material(
       borderRadius: widget.skipButtonStyle.skipButtonBorderRadius,
       color: widget.skipButtonStyle.skipButtonColor,
       child: InkWell(
         borderRadius: widget.skipButtonStyle.skipButtonBorderRadius,
         onTap: () {
-          final end = 1.0 - (1 / _pagesLength);
+          final double end = 1.0 - (1 / _pagesLength);
           setState(() {
             _netDragDistancePercent = end;
           });
@@ -96,7 +96,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 
   void _initButtons(int pagesLength) {
-    final index = (_netDragDistancePercent / (1 / pagesLength)).round();
+    final int index = (_netDragDistancePercent / (1 / pagesLength)).round();
 
     if (index >= pagesLength - 1) {
       setState(() {
@@ -115,26 +115,27 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
-    final _pagesLength = widget.pages.length;
+    final int _pagesLength = widget.pages.length;
 
-    final currentPosition = details.globalPosition;
-    final dragedDistance = currentPosition.dx - _dragStartPosition.dx;
-    final screenWidth = context.size.width;
-    final dragDistancePercent = dragedDistance / screenWidth;
-    final nddp = (_dragStartPercent + (-dragDistancePercent / _pagesLength))
-        .clamp(0.0, 1.0 - (1 / _pagesLength));
+    final Offset currentPosition = details.globalPosition;
+    final double dragedDistance = currentPosition.dx - _dragStartPosition.dx;
+    final double screenWidth = context.size!.width;
+    final double dragDistancePercent = dragedDistance / screenWidth;
+    final double nddp =
+        (_dragStartPercent + (-dragDistancePercent / _pagesLength))
+            .clamp(0.0, 1.0 - (1 / _pagesLength));
     setState(() {
       _netDragDistancePercent = nddp;
     });
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
-    final _pagesLength = widget.pages.length;
+    final int _pagesLength = widget.pages.length;
 
     _finishedDragStartPercent = _netDragDistancePercent;
     _finishedDragEndPercent =
         (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
-    _animationController.forward(from: 0.0);
+    _animationController!.forward(from: 0.0);
   }
 
   @override
@@ -147,11 +148,11 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       vsync: this,
     );
 
-    _animationController.addListener(() {
-      final nddp = lerpDouble(_finishedDragStartPercent,
-          _finishedDragEndPercent, _animationController.value);
+    _animationController?.addListener(() {
+      final double? nddp = lerpDouble(_finishedDragStartPercent,
+          _finishedDragEndPercent, _animationController!.value);
       setState(() {
-        _netDragDistancePercent = nddp;
+        _netDragDistancePercent = nddp!;
       });
     });
   }
@@ -159,7 +160,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   void dispose() {
     super.dispose();
-    _animationController.dispose();
+    _animationController?.dispose();
     _animationController = null;
   }
 
@@ -181,7 +182,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final _pagesLength = widget.pages.length;
+    final int _pagesLength = widget.pages.length;
     _initButtons(_pagesLength);
     return Scaffold(
       body: GestureDetector(
@@ -213,7 +214,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                     netDragPercent: _netDragDistancePercent,
                     pagesLength: _pagesLength,
                   ),
-                  _button
+                  _button!
                 ],
               ),
             ),

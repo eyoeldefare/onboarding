@@ -8,10 +8,10 @@ class CustomIndicator extends StatelessWidget {
   final int pagesLength;
 
   const CustomIndicator({
-    Key key,
-    this.netDragPercent,
-    this.indicator,
-    this.pagesLength,
+    Key? key,
+    required this.netDragPercent,
+    required this.indicator,
+    required this.pagesLength,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

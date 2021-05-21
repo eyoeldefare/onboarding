@@ -64,12 +64,9 @@ class MyApp extends StatelessWidget {
         ),
         pages: onboardingPagesList,
         indicator: Indicator(
-          indicatorDesign: IndicatorDesign.line(
-            lineDesign: LineDesign(
-              lineType: DesignType.line_uniform,
-            ),
-          ),
-        ),
+            indicatorDesign: IndicatorDesign.polygon(
+                polygonDesign: PolygonDesign(
+                    polygon: DesignType.polygon_square, polygonSpacer: 13.0))),
       ),
     );
   }

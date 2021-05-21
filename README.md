@@ -4,8 +4,7 @@ This is a sample flutter onboarding plugin you use to attract first-time users w
 
 ## Environment
 
-`sdk: ">=2.7.0 <3.0.0"`
-
+`sdk: ">=2.12.0 <3.0.0"`
 `flutter: ">=1.17.0"`
 
 ## Getting Started
@@ -14,7 +13,7 @@ To start using this widget, you will need to first import the package inside you
 
 ```yaml 
   dependencies:
-    onboarding: ^1.0.6
+    onboarding: ^1.1.0
 ```
 `$ flutter pub get`
 

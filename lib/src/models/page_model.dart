@@ -8,10 +8,8 @@ class PageModel {
   final Image image;
 
   PageModel({
-    @required this.image,
-    @required this.title,
-    @required this.info,
-  })  : assert(image != null),
-        assert(title != null),
-        assert(info != null);
+    required this.image,
+    required this.title,
+    required this.info,
+  });
 }

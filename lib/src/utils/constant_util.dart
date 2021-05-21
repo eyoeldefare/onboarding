@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 //---------Animation Duration-----------
 
 const animationDuration = Duration(milliseconds: 200);
