@@ -175,7 +175,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         pagesLength: _pagesLength,
         background: widget.background,
         pagesPadding: widget.pagesContentPadding,
-        titleAndInfoPadding: widget.titleAndInfoPadding,
       );
     }).toList();
   }
