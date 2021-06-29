@@ -1,3 +1,6 @@
+## [2.0.0] - 6/29/2021
+* Breaking changes
+* Changed the onboarding widget parameters to take in a single widget. This allows users to give them more power for customization by lifting tight restriction on its design.
 
 ## [1.1.0] - 5/21/2021.
 * Fixes and migration to null-safety
