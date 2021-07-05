@@ -1,3 +1,6 @@
+## [2.0.0+1] - 7/5/2021
+* Remove redundent button initialization
+
 ## [2.0.0] - 6/29/2021
 * Breaking changes
 * Changed the onboarding widget parameters to take in a single widget. This allows users to give them more power for customization by lifting tight restriction on its design.
@@ -14,7 +17,6 @@
 * Change the file for button models to represent all models
 * Make page model properties to not be null
 * Change the procceed button type from Object to dynamic and update documentation on the property
-
 
 ## [1.0.4] - 11/19/2020.
 

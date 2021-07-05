@@ -13,7 +13,7 @@ To start using this widget, you will need to first import the package inside you
 
 ```yaml 
   dependencies:
-    onboarding: ^2.0.0
+    onboarding: ^2.0.0+1
 ```
 `$ flutter pub get`
 
