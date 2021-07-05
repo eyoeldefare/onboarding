@@ -94,7 +94,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     );
   }
 
-  Material _initButtons(int pagesLength) {
+  Material _buildButtons(int pagesLength) {
     final int index = (_netDragDistancePercent / (1 / pagesLength)).round();
     if (index >= pagesLength - 1) {
       return _proceedButton;
@@ -206,7 +206,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                     netDragPercent: _netDragDistancePercent,
                     pagesLength: _pagesLength,
                   ),
-                  _initButtons(_pagesLength)
+                  _buildButtons(_pagesLength)
                 ],
               ),
             ),
