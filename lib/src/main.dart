@@ -56,7 +56,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
   AnimationController? _animationController;
-  Material? _button;
 
   Material get _skipButton {
     final int _pagesLength = widget.pages.length;
@@ -95,17 +94,12 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     );
   }
 
-  void _initButtons(int pagesLength) {
+  Material _initButtons(int pagesLength) {
     final int index = (_netDragDistancePercent / (1 / pagesLength)).round();
-
     if (index >= pagesLength - 1) {
-      setState(() {
-        _button = _proceedButton;
-      });
+      return _proceedButton;
     } else {
-      setState(() {
-        _button = _skipButton;
-      });
+      return _skipButton;
     }
   }
 
@@ -182,7 +176,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     final int _pagesLength = widget.pages.length;
-    _initButtons(_pagesLength);
     return Scaffold(
       body: GestureDetector(
         onHorizontalDragStart: _onHorizontalDragStart,
@@ -213,7 +206,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                     netDragPercent: _netDragDistancePercent,
                     pagesLength: _pagesLength,
                   ),
-                  _button!
+                  _initButtons(_pagesLength)
                 ],
               ),
             ),
