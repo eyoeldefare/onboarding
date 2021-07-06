@@ -1,3 +1,6 @@
+## [2.1.0] - 7/06/2021
+* Add toggle functionality for skip button
+
 ## [2.0.0+1] - 7/5/2021
 * Remove redundent button initialization
 
