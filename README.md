@@ -13,7 +13,7 @@ To start using this widget, you will need to first import the package inside you
 
 ```yaml 
   dependencies:
-    onboarding: ^2.1.0
+    onboarding: ^2.0.1
 ```
 `$ flutter pub get`
 
@@ -94,6 +94,7 @@ To use this widget,
                   );
                 },
             ),
+            isSkippable = true,
             pages: onboardingPagesList,
             indicator: Indicator(
               indicatorDesign: IndicatorDesign.line(
@@ -131,6 +132,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(
             lineDesign: LineDesign(
@@ -156,6 +158,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.line(
             lineDesign: LineDesign(
@@ -181,6 +184,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
             polygonDesign: PolygonDesign(
@@ -206,6 +210,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
             polygonDesign: PolygonDesign(
@@ -231,6 +236,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
             polygonDesign: PolygonDesign(
@@ -256,6 +262,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
             polygonDesign: PolygonDesign(
@@ -281,6 +288,7 @@ Sample examples of using different indicator types
               );
             }),
         pages: onboardingPagesList,
+        isSkippable = true,
         indicator: Indicator(
           indicatorDesign: IndicatorDesign.polygon(
             polygonDesign: PolygonDesign(
