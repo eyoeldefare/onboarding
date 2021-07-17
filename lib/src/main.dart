@@ -103,7 +103,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   bool get _isLastPage => _currentIndex >= widget.pages.length - 1;
 
-  Widget _buildButton() {
+  Widget get _buildButton {
     if (_isLastPage) {
       return _proceedButton;
     } else {
@@ -191,8 +191,17 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         child: Column(
           children: [
             Expanded(
-              child: Stack(
-                children: _getPages,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: widget.background,
+                  border: Border.all(
+                    width: 0.0,
+                    color: widget.background,
+                  ),
+                ),
+                child: Stack(
+                  children: _getPages,
+                ),
               ),
             ),
             Container(
@@ -213,7 +222,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                     netDragPercent: _netDragDistancePercent,
                     pagesLength: widget.pages.length,
                   ),
-                  _actionButton()
+                  _actionButton
                 ],
               ),
             ),
@@ -223,7 +232,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     );
   }
 
-  Widget _actionButton() {
+  Widget get _actionButton {
     final isLastPage = !widget.isSkippable && _isLastPage;
 
     return Visibility(
@@ -231,7 +240,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       maintainAnimation: true,
       maintainState: true,
       visible: widget.isSkippable || isLastPage,
-      child: _buildButton(),
+      child: _buildButton,
     );
   }
 }
