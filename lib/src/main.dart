@@ -34,6 +34,9 @@ class Onboarding extends StatefulWidget {
   ///Add a proceeding button [required] after the user reaches the end of the last page in the [pages] you provided
   final ProceedButtonStyle proceedButtonStyle;
 
+  ///Skip button visibility
+  final bool isSkippable;
+
   const Onboarding({
     Key? key,
     this.background = util.background,
@@ -44,6 +47,7 @@ class Onboarding extends StatefulWidget {
     this.footerPadding = util.footerPadding,
     this.pagesContentPadding = util.pageContentPadding,
     this.titleAndInfoPadding = util.titleAndInfoPadding,
+    this.isSkippable = true,
   }) : super(key: key);
 
   @override
@@ -94,9 +98,13 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     );
   }
 
-  Material _buildButtons(int pagesLength) {
-    final int index = (_netDragDistancePercent / (1 / pagesLength)).round();
-    if (index >= pagesLength - 1) {
+  int get _currentIndex =>
+      (_netDragDistancePercent / (1 / widget.pages.length)).round();
+
+  bool get _isLastPage => _currentIndex >= widget.pages.length - 1;
+
+  Widget _buildButton() {
+    if (_isLastPage) {
       return _proceedButton;
     } else {
       return _skipButton;
@@ -175,7 +183,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final int _pagesLength = widget.pages.length;
     return Scaffold(
       body: GestureDetector(
         onHorizontalDragStart: _onHorizontalDragStart,
@@ -204,15 +211,27 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                   CustomIndicator(
                     indicator: widget.indicator,
                     netDragPercent: _netDragDistancePercent,
-                    pagesLength: _pagesLength,
+                    pagesLength: widget.pages.length,
                   ),
-                  _buildButtons(_pagesLength)
+                  _actionButton()
                 ],
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _actionButton() {
+    final isLastPage = !widget.isSkippable && _isLastPage;
+
+    return Visibility(
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      visible: widget.isSkippable || isLastPage,
+      child: _buildButton(),
     );
   }
 }
