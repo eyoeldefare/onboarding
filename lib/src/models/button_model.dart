@@ -5,7 +5,7 @@ class SkipButtonStyle {
   final Color skipButtonColor;
   final BorderRadius skipButtonBorderRadius;
   final EdgeInsets skipButtonPadding;
-  final Text skipButtonText;
+  final Widget skipButtonText;
 
   const SkipButtonStyle({
     this.skipButtonColor = defaultSkipButtonColor,
@@ -25,7 +25,7 @@ class ProceedButtonStyle {
   final Color proceedButtonColor;
   final BorderRadius proceedButtonBorderRadius;
   final EdgeInsets proceedButtonPadding;
-  final Text proceedpButtonText;
+  final Widget proceedpButtonText;
 
   const ProceedButtonStyle({
     this.proceedButtonColor = defaultProceedButtonColor,
