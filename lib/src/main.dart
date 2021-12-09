@@ -37,7 +37,11 @@ class Onboarding extends StatefulWidget {
   ///Skip button visibility
   final bool isSkippable;
 
+  ///Callback function on page transition
   final Function(int)? onPageChange;
+
+  ///Start page of the onboarding widget (starts with 0)
+  final int startPage;
 
   const Onboarding({
     Key? key,
@@ -46,6 +50,7 @@ class Onboarding extends StatefulWidget {
     required this.indicator,
     required this.proceedButtonStyle,
     this.skipButtonStyle = const SkipButtonStyle(),
+    this.startPage = 0,
     this.footerPadding = util.footerPadding,
     this.pagesContentPadding = util.pageContentPadding,
     this.titleAndInfoPadding = util.titleAndInfoPadding,
@@ -148,7 +153,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _netDragDistancePercent = 0.0;
+    _netDragDistancePercent = widget.startPage/widget.pages.length;
     _animationController = AnimationController(
       duration: util.animationDuration,
       animationBehavior: AnimationBehavior.preserve,
