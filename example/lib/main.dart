@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Onboarding(
+        onPageChange: (page) => print(page),
         proceedButtonStyle: ProceedButtonStyle(
           proceedButtonRoute: (context) {
             return Navigator.pushAndRemoveUntil(

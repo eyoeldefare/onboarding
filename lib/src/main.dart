@@ -37,6 +37,8 @@ class Onboarding extends StatefulWidget {
   ///Skip button visibility
   final bool isSkippable;
 
+  final Function(int)? onPageChange;
+
   const Onboarding({
     Key? key,
     this.background = util.background,
@@ -48,6 +50,7 @@ class Onboarding extends StatefulWidget {
     this.pagesContentPadding = util.pageContentPadding,
     this.titleAndInfoPadding = util.titleAndInfoPadding,
     this.isSkippable = true,
+    this.onPageChange,
   }) : super(key: key);
 
   @override
@@ -101,6 +104,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   int get _currentIndex =>
       (_netDragDistancePercent / (1 / widget.pages.length)).round();
 
+  late ValueNotifier<int> currentIndex = ValueNotifier(_currentIndex);
   bool get _isLastPage => _currentIndex >= widget.pages.length - 1;
 
   Widget get _buildButton {
@@ -138,6 +142,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     _finishedDragEndPercent =
         (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
     _animationController!.forward(from: 0.0);
+    currentIndex.value = _currentIndex;
   }
 
   @override
@@ -157,6 +162,12 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         _netDragDistancePercent = nddp!;
       });
     });
+
+    if (widget.onPageChange != null) {
+      currentIndex.addListener(() {
+        widget.onPageChange!(currentIndex.value);
+      });
+    }
   }
 
   @override
