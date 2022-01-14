@@ -2,12 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'models/button_model.dart';
 import 'models/indicator_model.dart';
 import 'models/page_model.dart';
-import 'models/button_model.dart';
 import 'utils/constant_util.dart' as util;
 import 'views/indicator.dart';
 import 'views/page.dart';
+
+enum OnboardingSkipMode { Skip, Proceed }
 
 class Onboarding extends StatefulWidget {
   ///Change the background of the overall theme. Note that the default is [background = const Color.fromARGB(255, 35, 35, 35)]
@@ -37,18 +39,23 @@ class Onboarding extends StatefulWidget {
   ///Skip button visibility
   final bool isSkippable;
 
-  const Onboarding({
-    Key? key,
-    this.background = util.background,
-    required this.pages,
-    required this.indicator,
-    required this.proceedButtonStyle,
-    this.skipButtonStyle = const SkipButtonStyle(),
-    this.footerPadding = util.footerPadding,
-    this.pagesContentPadding = util.pageContentPadding,
-    this.titleAndInfoPadding = util.titleAndInfoPadding,
-    this.isSkippable = true,
-  }) : super(key: key);
+  /// [OnboardingSkipMode.Skip] goes to next page but [OnboardingSkipMode.Proceed] triggers proceedButtonRoute()
+  /// default to [OnboardingSkipMode.Skip]
+  final OnboardingSkipMode skipMode;
+
+  const Onboarding(
+      {Key? key,
+      this.background = util.background,
+      required this.pages,
+      required this.indicator,
+      required this.proceedButtonStyle,
+      this.skipButtonStyle = const SkipButtonStyle(),
+      this.footerPadding = util.footerPadding,
+      this.pagesContentPadding = util.pageContentPadding,
+      this.titleAndInfoPadding = util.titleAndInfoPadding,
+      this.isSkippable = true,
+      this.skipMode = OnboardingSkipMode.Skip})
+      : super(key: key);
 
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -69,6 +76,11 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       child: InkWell(
         borderRadius: widget.skipButtonStyle.skipButtonBorderRadius,
         onTap: () {
+          if (widget.skipMode == OnboardingSkipMode.Proceed) {
+            Future.value(widget.proceedButtonStyle.proceedButtonRoute(context));
+            return;
+          }
+
           final double end = 1.0 - (1 / _pagesLength);
           setState(() {
             _netDragDistancePercent = end;
