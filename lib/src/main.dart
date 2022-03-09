@@ -43,19 +43,27 @@ class Onboarding extends StatefulWidget {
   /// default to [OnboardingSkipMode.Skip]
   final OnboardingSkipMode skipMode;
 
-  const Onboarding(
-      {Key? key,
-      this.background = util.background,
-      required this.pages,
-      required this.indicator,
-      required this.proceedButtonStyle,
-      this.skipButtonStyle = const SkipButtonStyle(),
-      this.footerPadding = util.footerPadding,
-      this.pagesContentPadding = util.pageContentPadding,
-      this.titleAndInfoPadding = util.titleAndInfoPadding,
-      this.isSkippable = true,
-      this.skipMode = OnboardingSkipMode.Skip})
-      : super(key: key);
+  ///Callback function on page transition
+  final Function(int pageIndex)? onPageChange;
+
+  ///The index of the page you want to start with (default starts with 0)
+  final int startPageIndex;
+
+  const Onboarding({
+    Key? key,
+    this.background = util.background,
+    required this.pages,
+    required this.indicator,
+    required this.proceedButtonStyle,
+    this.skipButtonStyle = const SkipButtonStyle(),
+    this.startPageIndex = 0,
+    this.footerPadding = util.footerPadding,
+    this.pagesContentPadding = util.pageContentPadding,
+    this.titleAndInfoPadding = util.titleAndInfoPadding,
+    this.isSkippable = true,
+    this.skipMode = OnboardingSkipMode.Skip,
+    this.onPageChange,
+  }) : super(key: key);
 
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -66,7 +74,59 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _dragStartPercent;
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
-  AnimationController? _animationController;
+  late AnimationController? _animationController;
+  late ValueNotifier<int>? _indexNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.startPageIndex < widget.pages.length &&
+        widget.startPageIndex >= 0) {
+      _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
+
+      _animationController = AnimationController(
+        duration: util.animationDuration,
+        animationBehavior: AnimationBehavior.preserve,
+        vsync: this,
+      );
+
+      _animationController?.addListener(() {
+        final double? nddp = lerpDouble(_finishedDragStartPercent,
+            _finishedDragEndPercent, _animationController!.value);
+        setState(() {
+          _netDragDistancePercent = nddp!;
+        });
+      });
+
+      _indexNotifier = ValueNotifier(_currentIndex);
+
+      if (widget.onPageChange != null) {
+        _indexNotifier?.addListener(() {
+          widget.onPageChange!(_indexNotifier!.value);
+        });
+      }
+    } else if (widget.startPageIndex >= widget.pages.length) {
+      throw Exception(
+          "Out of bound exception; The starting page index can't be grater than or equal to the length of your pages.");
+    } else if (widget.startPageIndex < 0) {
+      throw Exception(
+          "Out of bound exception; The starting page index can't be less than 0.");
+    }
+  }
+
+  int get _currentIndex =>
+      (_netDragDistancePercent / (1 / widget.pages.length)).round();
+
+  bool get _isLastPage => _currentIndex >= widget.pages.length - 1;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _animationController?.dispose();
+    _animationController = null;
+    _indexNotifier?.dispose();
+    _indexNotifier = null;
+  }
 
   Material get _skipButton {
     final int _pagesLength = widget.pages.length;
@@ -87,8 +147,9 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
           });
         },
         child: Padding(
-            padding: widget.skipButtonStyle.skipButtonPadding,
-            child: widget.skipButtonStyle.skipButtonText),
+          padding: widget.skipButtonStyle.skipButtonPadding,
+          child: widget.skipButtonStyle.skipButtonText,
+        ),
       ),
     );
   }
@@ -108,19 +169,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  int get _currentIndex =>
-      (_netDragDistancePercent / (1 / widget.pages.length)).round();
-
-  bool get _isLastPage => _currentIndex >= widget.pages.length - 1;
-
-  Widget get _buildButton {
-    if (_isLastPage) {
-      return _proceedButton;
-    } else {
-      return _skipButton;
-    }
   }
 
   void _onHorizontalDragStart(DragStartDetails details) {
@@ -150,32 +198,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     _finishedDragEndPercent =
         (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
     _animationController!.forward(from: 0.0);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _netDragDistancePercent = 0.0;
-    _animationController = AnimationController(
-      duration: util.animationDuration,
-      animationBehavior: AnimationBehavior.preserve,
-      vsync: this,
-    );
-
-    _animationController?.addListener(() {
-      final double? nddp = lerpDouble(_finishedDragStartPercent,
-          _finishedDragEndPercent, _animationController!.value);
-      setState(() {
-        _netDragDistancePercent = nddp!;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _animationController?.dispose();
-    _animationController = null;
+    _indexNotifier!.value = _currentIndex;
   }
 
   List<OnboardPage> get _getPages {
@@ -191,6 +214,26 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         pagesPadding: widget.pagesContentPadding,
       );
     }).toList();
+  }
+
+  Widget get _buildButton {
+    if (_isLastPage) {
+      return _proceedButton;
+    } else {
+      return _skipButton;
+    }
+  }
+
+  Widget get _actionButton {
+    final isLastPage = !widget.isSkippable && _isLastPage;
+
+    return Visibility(
+      maintainSize: true,
+      maintainAnimation: true,
+      maintainState: true,
+      visible: widget.isSkippable || isLastPage,
+      child: _buildButton,
+    );
   }
 
   @override
@@ -241,18 +284,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
           ],
         ),
       ),
-    );
-  }
-
-  Widget get _actionButton {
-    final isLastPage = !widget.isSkippable && _isLastPage;
-
-    return Visibility(
-      maintainSize: true,
-      maintainAnimation: true,
-      maintainState: true,
-      visible: widget.isSkippable || isLastPage,
-      child: _buildButton,
     );
   }
 }
