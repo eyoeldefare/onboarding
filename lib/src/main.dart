@@ -128,6 +128,36 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     _indexNotifier = null;
   }
 
+  void _onHorizontalDragStart(DragStartDetails details) {
+    _dragStartPosition = details.globalPosition;
+    _dragStartPercent = _netDragDistancePercent;
+  }
+
+  void _onHorizontalDragUpdate(DragUpdateDetails details) {
+    final int _pagesLength = widget.pages.length;
+
+    final Offset currentPosition = details.globalPosition;
+    final double dragedDistance = currentPosition.dx - _dragStartPosition.dx;
+    final double screenWidth = context.size!.width;
+    final double dragDistancePercent = dragedDistance / screenWidth;
+    final double nddp =
+        (_dragStartPercent + (-dragDistancePercent / _pagesLength))
+            .clamp(0.0, 1.0 - (1 / _pagesLength));
+    setState(() {
+      _netDragDistancePercent = nddp;
+    });
+  }
+
+  void _onHorizontalDragEnd(DragEndDetails details) {
+    final int _pagesLength = widget.pages.length;
+
+    _finishedDragStartPercent = _netDragDistancePercent;
+    _finishedDragEndPercent =
+        (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
+    _animationController!.forward(from: 0.0);
+    _indexNotifier!.value = _currentIndex;
+  }
+
   Material get _skipButton {
     final int _pagesLength = widget.pages.length;
     return Material(
@@ -169,36 +199,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void _onHorizontalDragStart(DragStartDetails details) {
-    _dragStartPosition = details.globalPosition;
-    _dragStartPercent = _netDragDistancePercent;
-  }
-
-  void _onHorizontalDragUpdate(DragUpdateDetails details) {
-    final int _pagesLength = widget.pages.length;
-
-    final Offset currentPosition = details.globalPosition;
-    final double dragedDistance = currentPosition.dx - _dragStartPosition.dx;
-    final double screenWidth = context.size!.width;
-    final double dragDistancePercent = dragedDistance / screenWidth;
-    final double nddp =
-        (_dragStartPercent + (-dragDistancePercent / _pagesLength))
-            .clamp(0.0, 1.0 - (1 / _pagesLength));
-    setState(() {
-      _netDragDistancePercent = nddp;
-    });
-  }
-
-  void _onHorizontalDragEnd(DragEndDetails details) {
-    final int _pagesLength = widget.pages.length;
-
-    _finishedDragStartPercent = _netDragDistancePercent;
-    _finishedDragEndPercent =
-        (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
-    _animationController!.forward(from: 0.0);
-    _indexNotifier!.value = _currentIndex;
   }
 
   List<OnboardPage> get _getPages {
