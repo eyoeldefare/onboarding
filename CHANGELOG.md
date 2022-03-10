@@ -1,3 +1,8 @@
+## [2.1.1] - 3/10/2022
+* Added a callback func to get the index of the current page as page makes transition
+* Added ability to set the index of the current page
+* Added ability to go to any page instead of skipping 
+
 ## [2.1.0] - 7/17/2021
 * Added toggle functionality for skip button
 * Removed a grey line that divided the top pages from the footer (which was as a result of release v2.0.0)

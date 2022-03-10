@@ -10,19 +10,11 @@ class MyApp extends StatelessWidget {
     PageModel(
       widget: Column(
         children: [
-          Container(
-              padding: EdgeInsets.only(bottom: 45.0),
-              child: Image.asset('assets/images/facebook.png',
-                  color: pageImageColor)),
-          Container(
-              width: double.infinity,
-              child: Text('SECURED BACKUP', style: pageTitleStyle)),
-          Container(
-            width: double.infinity,
-            child: Text(
-              'Keep your files in closed safe so you can\'t lose them',
-              style: pageInfoStyle,
-            ),
+          Image.asset('assets/images/facebook.png', color: pageImageColor),
+          Text('SECURED BACKUP', style: pageTitleStyle),
+          Text(
+            'Keep your files in closed safe so you can\'t lose them',
+            style: pageInfoStyle,
           ),
         ],
       ),
@@ -64,7 +56,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Onboarding(
         onPageChange: (page) => print(page),
-        startPageIndex: 1,
+        startPageIndex: 0,
         proceedButtonStyle: ProceedButtonStyle(
           proceedButtonRoute: (context) {
             return Navigator.pushAndRemoveUntil(
@@ -78,9 +70,11 @@ class MyApp extends StatelessWidget {
         ),
         pages: onboardingPagesList,
         indicator: Indicator(
-            indicatorDesign: IndicatorDesign.polygon(
-                polygonDesign: PolygonDesign(
-                    polygon: DesignType.polygon_square, polygonSpacer: 13.0))),
+          indicatorDesign: IndicatorDesign.polygon(
+            polygonDesign: PolygonDesign(
+                polygon: DesignType.polygon_square, polygonSpacer: 13.0),
+          ),
+        ),
       ),
     );
   }
