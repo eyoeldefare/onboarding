@@ -57,24 +57,7 @@ class MyApp extends StatelessWidget {
       home: Onboarding(
         onPageChange: (page) => print(page),
         startPageIndex: 0,
-        proceedButtonStyle: ProceedButtonStyle(
-          proceedButtonRoute: (context) {
-            return Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Container(),
-              ),
-              (route) => false,
-            );
-          },
-        ),
         pages: onboardingPagesList,
-        indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-                polygon: DesignType.polygon_square, polygonSpacer: 13.0),
-          ),
-        ),
       ),
     );
   }
