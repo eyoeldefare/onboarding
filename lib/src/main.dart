@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../onboarding.dart';
 import 'utils/constant_util.dart' as util;
-import 'views/footer.dart';
 
 class Onboarding extends StatefulWidget {
   ///Change the background of the onboarding. Note that the default is [background = const Color.fromARGB(255, 35, 35, 35)]
@@ -12,13 +11,13 @@ class Onboarding extends StatefulWidget {
   ///Add pages that are displayed
   final List<PageModel> pages;
 
-  ///Callback function on page transition
+  ///Callback function on page transition which allows you to take actions based on the current page
   final Function(int pageIndex)? onPageChange;
 
   ///The index of the page you want to start with (default starts with 0)
   final int startPageIndex;
 
-  ///Design your own custom fotter
+  ///Design your own custom footer based around the indicator for your page transition
   final Footer footer;
 
   const Onboarding({
