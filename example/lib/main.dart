@@ -5,7 +5,20 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  TextButton _button = TextButton(
+    style: ButtonStyle(
+      foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+    ),
+    onPressed: () {},
+    child: Text('Skip'),
+  );
+
   final onboardingPagesList = [
     PageModel(
       widget: Column(
@@ -15,7 +28,7 @@ class MyApp extends StatelessWidget {
           Text(
             'Keep your files in closed safe so you can\'t lose them',
             style: pageInfoStyle,
-          ),
+          )
         ],
       ),
     ),
@@ -55,9 +68,53 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Onboarding(
-        onPageChange: (page) => print(page),
-        startPageIndex: 0,
+        background: Colors.red,
+        onPageChange: (int page) {
+          if (page == 2) {
+            setState(() {
+              _button = TextButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                onPressed: () {},
+                child: Text('Procced'),
+              );
+            });
+          } else {
+            setState(() {
+              _button = TextButton(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.blue),
+                ),
+                onPressed: () {},
+                child: Text('Skip'),
+              );
+            });
+          }
+        },
+        startPageIndex: 1,
         pages: onboardingPagesList,
+        footer: Footer(
+          footerPadding: EdgeInsets.only(
+            bottom: 10.0,
+            left: 10.0,
+          ),
+          child: TextButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+            ),
+            onPressed: () {},
+            child: Text('TextButton'),
+          ),
+          indicator: Indicator(
+            indicatorDesign: IndicatorDesign.polygon(
+              polygonDesign: PolygonDesign(
+                  polygon: DesignType.polygon_square, polygonSpacer: 13.0),
+            ),
+          ),
+        ),
       ),
     );
   }
