@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
+  late Material materialButton;
   final onboardingPagesList = [
     PageModel(
       widget: Column(
@@ -114,6 +117,60 @@ class _MyAppState extends State<MyApp> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    materialButton = _skipButton;
+  }
+
+  void _buildButton(int pageIndex) {
+    if (pageIndex == 2) {
+      setState(() {
+        materialButton = _signupButton;
+      });
+    } else {
+      setState(() {
+        materialButton = _skipButton;
+      });
+    }
+  }
+
+  Material get _skipButton {
+    return Material(
+      borderRadius: defaultSkipButtonBorderRadius,
+      color: defaultSkipButtonColor,
+      child: InkWell(
+        borderRadius: defaultSkipButtonBorderRadius,
+        onTap: () {},
+        child: const Padding(
+          padding: defaultSkipButtonPadding,
+          child: Text(
+            'Skip',
+            style: defaultSkipButtonTextStyle,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Material get _signupButton {
+    return Material(
+      borderRadius: defaultProceedButtonBorderRadius,
+      color: defaultProceedButtonColor,
+      child: InkWell(
+        borderRadius: defaultProceedButtonBorderRadius,
+        onTap: () {},
+        child: const Padding(
+          padding: defaultProceedButtonPadding,
+          child: Text(
+            'Sign up',
+            style: defaultProceedButtonTextStyle,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -122,47 +179,13 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-
-      /**
-       * 
-       * 
-       * const defaultSkipButtonColor = Color.fromARGB(255, 93, 93, 93);
-        const defaultSkipButtonBorderRadius = BorderRadius.all(Radius.circular(20.0));
-const defaultSkipButtonPadding =
-    EdgeInsets.symmetric(horizontal: 17.0, vertical: 5.0);
-const defaultSkipButtonTextStyle =
-    TextStyle(color: Colors.white, letterSpacing: 1.0);
-
-//--------Proceed Button---------
-
-const defaultProceedButtonColor = Color.fromARGB(255, 88, 94, 147);
-const defaultProceedButtonBorderRadius =
-    BorderRadius.all(Radius.circular(20.0));
-const defaultProceedButtonPadding =
-    EdgeInsets.symmetric(horizontal: 17.0, vertical: 5.0);
-const defaultProceedButtonTextStyle = TextStyle(
-  color: Colors.white,
-  letterSpacing: 1.0,
-);
-       */
       home: Onboarding(
         pages: onboardingPagesList,
+        onPageChange: (int pageIndex) {
+          _buildButton(pageIndex);
+        },
         footer: Footer(
-          child: Material(
-            borderRadius: defaultSkipButtonBorderRadius,
-            color: defaultSkipButtonColor,
-            child: InkWell(
-              borderRadius: defaultSkipButtonBorderRadius,
-              onTap: () {},
-              child: const Padding(
-                padding: defaultSkipButtonPadding,
-                child: Text(
-                  'Skip',
-                  style: defaultSkipButtonTextStyle,
-                ),
-              ),
-            ),
-          ),
+          child: materialButton,
           indicator: Indicator(
             indicatorDesign: IndicatorDesign.line(
               lineDesign: LineDesign(
