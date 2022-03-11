@@ -31,7 +31,7 @@ Sample examples will be shown bellow from left to right respectively.
 [Example 3](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main2.dart)
 
 ### Visual Samples For Above Examples
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main.gif" width=300> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main1.gif" width=300> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main2.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main1.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/breaking/images/main2.gif" width=250>
 
 ## Usage
 To use this widget, 
