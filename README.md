@@ -26,14 +26,14 @@ Sample examples will be shown bellow from left to right respectively.
 
 [Example 1](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main.dart)
 
-[Example 2](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main.dart)
+[Example 2](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main1.dart)
 
-[Example 3](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main.dart)
+[Example 3](https://github.com/eyoeldefare/onboarding/blob/main/example/lib/main2.dart)
 
 ### Visual Samples For Above Examples
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/5.gif" width=300>
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/5.gif" width=300>
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/5.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/main.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/main1.gif" width=300>
+<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/main2.gif" width=300>
 
 ## Usage
 To use this widget, 
