@@ -13,7 +13,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Material materialButton;
+  late Widget child, secondChild;
   final onboardingPagesList = [
     PageModel(
       widget: Column(
@@ -115,55 +115,109 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
   ];
-
+  static const width = 100.0;
   @override
   void initState() {
     super.initState();
-    materialButton = _skipButton;
+    child = _skipButton;
+    secondChild = _signupButton;
   }
 
-  set _buildButton(int pageIndex) {
+  set _buildChild(int pageIndex) {
     if (pageIndex == 2) {
       setState(() {
-        materialButton = _signupButton;
+        child = const SizedBox(
+          width: width,
+          child: Align(
+            alignment: Alignment.center,
+          ),
+        );
       });
     } else {
       setState(() {
-        materialButton = _skipButton;
+        child = _skipButton;
       });
     }
   }
 
-  Material get _skipButton {
-    return Material(
-      borderRadius: defaultSkipButtonBorderRadius,
-      color: defaultSkipButtonColor,
-      child: InkWell(
-        borderRadius: defaultSkipButtonBorderRadius,
-        onTap: () {},
-        child: const Padding(
-          padding: defaultSkipButtonPadding,
-          child: Text(
-            'Skip',
-            style: defaultSkipButtonTextStyle,
+  set _buildSecondChild(int pageIndex) {
+    if (pageIndex == 2) {
+      setState(() {
+        secondChild = _signinButton;
+      });
+    } else {
+      setState(() {
+        secondChild = _signupButton;
+      });
+    }
+  }
+
+  SizedBox get _signinButton {
+    return SizedBox(
+      width: width,
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Material(
+          borderRadius: signinButtonBorderRadius,
+          color: signinButtonColor,
+          child: InkWell(
+            borderRadius: signinButtonBorderRadius,
+            onTap: () {},
+            child: const Padding(
+              padding: signinButtonPadding,
+              child: Text(
+                'Sign in',
+                style: signinButtonTextStyle,
+              ),
+            ),
           ),
         ),
       ),
     );
   }
 
-  Material get _signupButton {
-    return Material(
-      borderRadius: defaultProceedButtonBorderRadius,
-      color: defaultProceedButtonColor,
-      child: InkWell(
-        borderRadius: defaultProceedButtonBorderRadius,
-        onTap: () {},
-        child: const Padding(
-          padding: defaultProceedButtonPadding,
-          child: Text(
-            'Sign up',
-            style: defaultProceedButtonTextStyle,
+  SizedBox get _skipButton {
+    return SizedBox(
+      width: width,
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Material(
+          borderRadius: defaultSkipButtonBorderRadius,
+          color: defaultSkipButtonColor,
+          child: InkWell(
+            borderRadius: defaultSkipButtonBorderRadius,
+            onTap: () {},
+            child: const Padding(
+              padding: defaultSkipButtonPadding,
+              child: Text(
+                'Skip',
+                style: defaultSkipButtonTextStyle,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  SizedBox get _signupButton {
+    return SizedBox(
+      width: width,
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Material(
+          borderRadius: defaultProceedButtonBorderRadius,
+          color: defaultProceedButtonColor,
+          child: InkWell(
+            borderRadius: defaultProceedButtonBorderRadius,
+            onTap: () {},
+            child: const Padding(
+              padding: defaultProceedButtonPadding,
+              child: Text(
+                'Sign up',
+                style: defaultProceedButtonTextStyle,
+              ),
+            ),
           ),
         ),
       ),
@@ -182,17 +236,25 @@ class _MyAppState extends State<MyApp> {
       home: Onboarding(
         pages: onboardingPagesList,
         onPageChange: (int pageIndex) {
-          _buildButton = pageIndex;
+          _buildChild = pageIndex;
+          _buildSecondChild = pageIndex;
         },
         footer: Footer(
-          child: materialButton,
+          footerMainAxisAlignment: MainAxisAlignment.spaceBetween,
+          footerCrossAxisAlignment: CrossAxisAlignment.center,
+          child: child,
           indicator: Indicator(
-            indicatorDesign: IndicatorDesign.line(
-              lineDesign: LineDesign(
-                lineType: DesignType.line_uniform,
+            indicatorDesign: IndicatorDesign.polygon(
+              polygonDesign: PolygonDesign(
+                polygon: DesignType.polygon_arrow,
               ),
             ),
           ),
+          secondChild: Padding(
+            padding: const EdgeInsets.only(left: 45.0),
+            child: secondChild,
+          ),
+          indicatorPosition: IndicatorPosition.center,
           footerPadding: const EdgeInsets.all(45.0),
         ),
       ),

@@ -31,6 +31,15 @@ const defaultSkipButtonPadding =
 const defaultSkipButtonTextStyle =
     TextStyle(color: Colors.white, letterSpacing: 1.0);
 
+//---------Signin button-----------
+
+const signinButtonColor = Color.fromARGB(255, 158, 69, 69);
+const signinButtonBorderRadius = BorderRadius.all(Radius.circular(20.0));
+const signinButtonPadding =
+    EdgeInsets.symmetric(horizontal: 17.0, vertical: 5.0);
+const signinButtonTextStyle =
+    TextStyle(color: Colors.white, letterSpacing: 1.0);
+
 //--------Proceed Button---------
 
 const defaultProceedButtonColor = Color.fromARGB(255, 88, 94, 147);

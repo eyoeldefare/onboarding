@@ -236,8 +236,8 @@ class CustomFooter extends StatelessWidget {
               netDragPercent: netDragDistancePercent,
               pagesLength: pageLength,
             ),
+            footer.child,
             footer.secondChild!,
-            footer.child
           ]);
     }
     return row;
