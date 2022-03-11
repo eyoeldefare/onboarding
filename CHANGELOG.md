@@ -1,5 +1,7 @@
+
+
 ## [3.0.0] - 3/11/2022
-* Implemented a new widget Footer to allow more customization
+* BREAKING CHANGE: implemented a new Footer widget to allow more customization
 
 ## [2.1.1] - 3/10/2022
 * Added a callback func to get the index of the current page as page makes transition
