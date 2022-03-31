@@ -128,9 +128,9 @@ class Footer {
     required this.child,
     required this.indicator,
     this.secondChild = const SizedBox(),
-    this.indicatorPosition = IndicatorPosition.none,
+    this.indicatorPosition = IndicatorPosition.left,
     this.footerMainAxisAlignment = MainAxisAlignment.spaceBetween,
     this.footerCrossAxisAlignment = CrossAxisAlignment.center,
-    this.footerPadding = const EdgeInsets.only(left: 10.0, right: 60),
+    this.footerPadding = const EdgeInsets.all(45),
   });
 }

@@ -199,7 +199,7 @@ class CustomFooter extends StatelessWidget {
               pagesLength: pageLength,
             ),
           ]);
-    } else {
+    } else if (footer.indicatorPosition == IndicatorPosition.none) {
       row = Row(
           mainAxisAlignment: footer.footerMainAxisAlignment!,
           crossAxisAlignment: footer.footerCrossAxisAlignment!,
@@ -208,10 +208,13 @@ class CustomFooter extends StatelessWidget {
               indicator: footer.indicator,
               netDragPercent: netDragDistancePercent,
               pagesLength: pageLength,
+              shouldPaint: false,
             ),
             footer.child,
             footer.secondChild!,
           ]);
+    } else {
+      row = Row();
     }
     return row;
   }
