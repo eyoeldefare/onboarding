@@ -27,7 +27,9 @@ class Onboarding extends StatefulWidget {
     required this.footer,
     this.startPageIndex = 0,
     this.onPageChange,
-  }) : super(key: key);
+  })  : assert(startPageIndex < pages.length),
+        assert(startPageIndex >= 0),
+        super(key: key);
 
   @override
   _OnboardingState createState() => _OnboardingState();
@@ -39,43 +41,26 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
   late AnimationController? _animationController;
-  late ValueNotifier<int>? _indexNotifier;
 
   @override
   void initState() {
     super.initState();
-    if (widget.startPageIndex < widget.pages.length &&
-        widget.startPageIndex >= 0) {
-      _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
 
-      _animationController = AnimationController(
-        duration: util.animationDuration,
-        animationBehavior: AnimationBehavior.preserve,
-        vsync: this,
-      );
+    _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
 
-      _animationController?.addListener(() {
-        final double? nddp = lerpDouble(_finishedDragStartPercent,
-            _finishedDragEndPercent, _animationController!.value);
-        setState(() {
-          _netDragDistancePercent = nddp!;
-        });
+    _animationController = AnimationController(
+      duration: util.animationDuration,
+      animationBehavior: AnimationBehavior.preserve,
+      vsync: this,
+    );
+
+    _animationController?.addListener(() {
+      final double? nddp = lerpDouble(_finishedDragStartPercent,
+          _finishedDragEndPercent, _animationController!.value);
+      setState(() {
+        _netDragDistancePercent = nddp!;
       });
-
-      _indexNotifier = ValueNotifier(_currentIndex);
-
-      if (widget.onPageChange != null) {
-        _indexNotifier?.addListener(() {
-          widget.onPageChange!(_indexNotifier!.value);
-        });
-      }
-    } else if (widget.startPageIndex >= widget.pages.length) {
-      throw Exception(
-          "Out of bound exception; The starting page index can't be grater than or equal to the length of your pages.");
-    } else if (widget.startPageIndex < 0) {
-      throw Exception(
-          "Out of bound exception; The starting page index can't be less than 0.");
-    }
+    });
   }
 
   int get _currentIndex =>
@@ -86,8 +71,6 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     super.dispose();
     _animationController?.dispose();
     _animationController = null;
-    _indexNotifier?.dispose();
-    _indexNotifier = null;
   }
 
   void _onHorizontalDragStart(DragStartDetails details) {
@@ -117,7 +100,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     _finishedDragEndPercent =
         (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
     _animationController!.forward(from: 0.0);
-    _indexNotifier!.value = _currentIndex;
+    widget.onPageChange!(_currentIndex);
   }
 
   List<OnboardPage> get _getPages {
