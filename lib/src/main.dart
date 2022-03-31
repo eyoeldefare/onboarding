@@ -120,6 +120,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: widget.background,
       body: GestureDetector(
         onHorizontalDragStart: _onHorizontalDragStart,
         onHorizontalDragUpdate: _onHorizontalDragUpdate,
@@ -127,18 +128,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         child: Column(
           children: [
             Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: widget.background,
-                  border: Border.all(
-                    width: 0.0,
-                    color: widget.background,
-                  ),
-                ),
-                child: Stack(
-                  children: _getPages,
-                ),
-              ),
+              child: Stack(children: _getPages),
             ),
             CustomFooter(
               footer: widget.footer,

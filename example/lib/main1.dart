@@ -16,105 +16,154 @@ class _MyAppState extends State<MyApp> {
   late Widget child, secondChild;
   final onboardingPagesList = [
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
+      widget: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 45.0,
+                vertical: 90.0,
+              ),
+              child: Image.asset('assets/images/facebook.png',
+                  color: pageImageColor),
             ),
-            child: Image.asset('assets/images/facebook.png',
-                color: pageImageColor),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'SECURED BACKUP',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'SECURED BACKUP',
+                  style: pageTitleStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-        ],
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     ),
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
+      widget: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 45.0,
+                vertical: 90.0,
+              ),
+              child: Image.asset('assets/images/twitter.png',
+                  color: pageImageColor),
             ),
-            child:
-                Image.asset('assets/images/twitter.png', color: pageImageColor),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'CHANGE AND RISE',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'CHANGE AND RISE',
+                  style: pageTitleStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Give others access to any file or folders you choose',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Give others access to any file or folders you choose',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
+      widget: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 45.0,
+                vertical: 90.0,
+              ),
+              child: Image.asset('assets/images/instagram.png',
+                  color: pageImageColor),
             ),
-            child: Image.asset('assets/images/instagram.png',
-                color: pageImageColor),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'EASY ACCESS',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'EASY ACCESS',
+                  style: pageTitleStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Reach your files anytime from any devices anywhere',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Reach your files anytime from any devices anywhere',
+                  style: pageInfoStyle,
+                  textAlign: TextAlign.left,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     ),
   ];
+
   static const width = 100.0;
   @override
   void initState() {
