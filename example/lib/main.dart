@@ -233,8 +233,8 @@ class _MyAppState extends State<MyApp> {
           _buildButton = pageIndex;
         },
         footer: Footer(
-          child: materialButton,
-          secondChild: const SizedBox(),
+          child: const SizedBox(),
+          secondChild: materialButton,
           indicator: Indicator(
             indicatorDesign: IndicatorDesign.line(
               lineDesign: LineDesign(
@@ -242,7 +242,6 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
           ),
-          // indicatorPosition: IndicatorPosition.center,
           footerPadding: const EdgeInsets.all(45.0),
         ),
       ),

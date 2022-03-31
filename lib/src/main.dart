@@ -218,16 +218,18 @@ class CustomFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: footer.footerPadding,
-      decoration: BoxDecoration(
-        color: background,
-        border: Border.all(
-          width: 0.0,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
           color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
+          ),
         ),
+        child: _row,
       ),
-      child: _row,
     );
   }
 }

@@ -21,13 +21,13 @@ class OnboardPage extends StatelessWidget {
     final singlePageScrollPercentage = dragPercent / (1 / pagesLength);
     return FractionalTranslation(
       translation: Offset(index - singlePageScrollPercentage, 0.0),
-      child: Container(
+      child: DecoratedBox(
         decoration: BoxDecoration(
+          color: background,
           border: Border.all(
             width: 0.0,
             color: background,
           ),
-          color: background,
         ),
         child: pageModel.widget,
       ),
