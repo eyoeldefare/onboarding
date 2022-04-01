@@ -245,25 +245,6 @@ class _MyAppState extends State<MyApp> {
         onPageChange: (int pageIndex) {
           _buildChild = pageIndex;
         },
-        footer: Footer(
-          footerMainAxisAlignment: MainAxisAlignment.spaceBetween,
-          footerCrossAxisAlignment: CrossAxisAlignment.center,
-          child: Container(child: child),
-          indicator: Indicator(
-            indicatorDesign: IndicatorDesign.polygon(
-              polygonDesign: PolygonDesign(
-                polygon: DesignType.polygon_circle,
-              ),
-            ),
-          ),
-          indicatorPosition: IndicatorPosition.right,
-          footerPadding: const EdgeInsets.only(
-            left: 45.0,
-            right: 90.0,
-            top: 45.0,
-            bottom: 45.0,
-          ),
-        ),
       ),
     );
   }

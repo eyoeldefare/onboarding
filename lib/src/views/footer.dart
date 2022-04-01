@@ -29,7 +29,6 @@ class CustomIndicator extends StatelessWidget {
         netDragPercent: netDragPercent,
         indicator: indicator,
         pagesLength: pagesLength,
-        shouldPaint: shouldPaint,
       ),
       child: const SizedBox(),
     );

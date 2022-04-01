@@ -7,7 +7,6 @@ class ShapePainter extends CustomPainter {
   final double netDragPercent;
   final Indicator indicator;
   final int pagesLength;
-  final bool shouldPaint;
 
   final Paint painter1 = Paint();
   final Paint painter2 = Paint();
@@ -18,7 +17,6 @@ class ShapePainter extends CustomPainter {
     required this.indicator,
     required this.netDragPercent,
     required this.pagesLength,
-    required this.shouldPaint,
   }) {
     painter1.color = this.indicator.activeIndicator.color;
     painter1.strokeWidth = this.indicator.activeIndicator.borderWidth;
@@ -33,7 +31,7 @@ class ShapePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    if (shouldPaint) _paint(canvas, size);
+    _paint(canvas, size);
   }
 
   @override

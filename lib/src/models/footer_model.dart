@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:onboarding/onboarding.dart';
-import '../views/footer.dart';
 
 ///This contains [7] different kinds of indicator designs you can choose from including [polygon_diamond, polygon_arrow, polygon_pentagon, polygon_square, polygon_circle, line_uniform, line_nonuniform]
 enum DesignType {
@@ -101,36 +99,4 @@ class LineDesign {
             lineType == DesignType.line_nonuniform ||
                 lineType == DesignType.line_uniform,
             "lineType can only be either DesignType.uniform_line or DesignType.line");
-}
-
-class Footer {
-  ///Enter widget you want to display on the footer
-  final Widget child;
-
-  ///Design your own indicator style
-  final Indicator indicator;
-
-  ///Enter a second widget you want to display on the footer
-  final Widget? secondChild;
-
-  ///Set where the indicator should display [left, right, center, none]. Default set to none
-  final IndicatorPosition? indicatorPosition;
-
-  ///How the children should be placed along the main axis
-  final MainAxisAlignment? footerMainAxisAlignment;
-
-  ///How the children should be placed along the cross axis
-  final CrossAxisAlignment? footerCrossAxisAlignment;
-
-  ///Footer Padding
-  final EdgeInsets footerPadding;
-  Footer({
-    required this.child,
-    required this.indicator,
-    this.secondChild = const SizedBox(),
-    this.indicatorPosition = IndicatorPosition.left,
-    this.footerMainAxisAlignment = MainAxisAlignment.spaceBetween,
-    this.footerCrossAxisAlignment = CrossAxisAlignment.center,
-    this.footerPadding = const EdgeInsets.all(45),
-  });
 }

@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import '../onboarding.dart';
 import 'utils/constant_util.dart' as util;
 
-class Onboarding extends StatefulWidget {
-  ///Change the background of the onboarding. Note that the default is [background = const Color.fromARGB(255, 35, 35, 35)]
-  final Color background;
+typedef T FooterBuilder<T>(
+  BuildContext context,
+  double netDragDistance,
+  int pagesLength,
+  void Function(int index) setIndex,
+);
 
+class Onboarding extends StatefulWidget {
   ///Add pages that are displayed
   final List<PageModel> pages;
 
@@ -17,16 +21,15 @@ class Onboarding extends StatefulWidget {
   ///The index of the page you want to start with (default starts with 0)
   final int startPageIndex;
 
-  ///Design your own custom footer based around the indicator for your page transition
-  final Footer footer;
+  ///Build footer
+  final FooterBuilder? footerBuilder;
 
   const Onboarding({
     Key? key,
-    this.background = util.background,
     required this.pages,
-    required this.footer,
     this.startPageIndex = 0,
     this.onPageChange,
+    this.footerBuilder,
   })  : assert(startPageIndex < pages.length),
         assert(startPageIndex >= 0),
         super(key: key);
@@ -65,6 +68,17 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   int get _currentIndex =>
       (_netDragDistancePercent / (1 / widget.pages.length)).round();
+
+  @override
+  void didUpdateWidget(covariant Onboarding oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.startPageIndex != oldWidget.startPageIndex &&
+        widget.startPageIndex != _currentIndex) {
+      assert(widget.startPageIndex < widget.pages.length);
+      assert(widget.startPageIndex >= 0);
+      _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
+    }
+  }
 
   @override
   void dispose() {
@@ -112,126 +126,36 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         index: index++,
         dragPercent: _netDragDistancePercent,
         pagesLength: _pagesLength,
-        background: widget.background,
       );
     }).toList();
   }
 
+  void setIndex(int index) {
+    print(index);
+    setState(() {
+      _netDragDistancePercent = index / widget.pages.length;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: widget.background,
-      body: GestureDetector(
-        onHorizontalDragStart: _onHorizontalDragStart,
-        onHorizontalDragUpdate: _onHorizontalDragUpdate,
-        onHorizontalDragEnd: _onHorizontalDragEnd,
-        child: Column(
-          children: [
-            Expanded(
-              child: Stack(children: _getPages),
-            ),
-            CustomFooter(
-              footer: widget.footer,
-              background: widget.background,
-              pageLength: widget.pages.length,
-              netDragDistancePercent: _netDragDistancePercent,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class CustomFooter extends StatelessWidget {
-  final Footer footer;
-  final Color background;
-  final double netDragDistancePercent;
-  final int pageLength;
-
-  const CustomFooter({
-    Key? key,
-    required this.footer,
-    required this.background,
-    required this.pageLength,
-    required this.netDragDistancePercent,
-  }) : super(key: key);
-
-  Row get _row {
-    Row row;
-    if (footer.indicatorPosition == IndicatorPosition.center) {
-      row = Row(
-        mainAxisAlignment: footer.footerMainAxisAlignment!,
-        crossAxisAlignment: footer.footerCrossAxisAlignment!,
+    final fb = widget.footerBuilder;
+    return GestureDetector(
+      onHorizontalDragStart: _onHorizontalDragStart,
+      onHorizontalDragUpdate: _onHorizontalDragUpdate,
+      onHorizontalDragEnd: _onHorizontalDragEnd,
+      child: Column(
         children: [
-          footer.child,
-          CustomIndicator(
-            indicator: footer.indicator,
-            netDragPercent: netDragDistancePercent,
-            pagesLength: pageLength,
-          ),
-          footer.secondChild!,
+          Expanded(child: Stack(children: _getPages)),
+          fb != null
+              ? fb(
+                  context,
+                  _netDragDistancePercent,
+                  widget.pages.length,
+                  setIndex,
+                )
+              : const SizedBox(),
         ],
-      );
-    } else if (footer.indicatorPosition == IndicatorPosition.left) {
-      row = Row(
-          mainAxisAlignment: footer.footerMainAxisAlignment!,
-          crossAxisAlignment: footer.footerCrossAxisAlignment!,
-          children: [
-            CustomIndicator(
-              indicator: footer.indicator,
-              netDragPercent: netDragDistancePercent,
-              pagesLength: pageLength,
-            ),
-            footer.child,
-            footer.secondChild!,
-          ]);
-    } else if (footer.indicatorPosition == IndicatorPosition.right) {
-      row = Row(
-          mainAxisAlignment: footer.footerMainAxisAlignment!,
-          crossAxisAlignment: footer.footerCrossAxisAlignment!,
-          children: [
-            footer.child,
-            footer.secondChild!,
-            CustomIndicator(
-              indicator: footer.indicator,
-              netDragPercent: netDragDistancePercent,
-              pagesLength: pageLength,
-            ),
-          ]);
-    } else if (footer.indicatorPosition == IndicatorPosition.none) {
-      row = Row(
-          mainAxisAlignment: footer.footerMainAxisAlignment!,
-          crossAxisAlignment: footer.footerCrossAxisAlignment!,
-          children: [
-            CustomIndicator(
-              indicator: footer.indicator,
-              netDragPercent: netDragDistancePercent,
-              pagesLength: pageLength,
-              shouldPaint: false,
-            ),
-            footer.child,
-            footer.secondChild!,
-          ]);
-    } else {
-      row = Row();
-    }
-    return row;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: footer.footerPadding,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: background,
-          border: Border.all(
-            width: 0.0,
-            color: background,
-          ),
-        ),
-        child: _row,
       ),
     );
   }

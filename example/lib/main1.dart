@@ -288,24 +288,6 @@ class _MyAppState extends State<MyApp> {
           _buildChild = pageIndex;
           _buildSecondChild = pageIndex;
         },
-        footer: Footer(
-          footerMainAxisAlignment: MainAxisAlignment.spaceBetween,
-          footerCrossAxisAlignment: CrossAxisAlignment.center,
-          child: child,
-          indicator: Indicator(
-            indicatorDesign: IndicatorDesign.polygon(
-              polygonDesign: PolygonDesign(
-                polygon: DesignType.polygon_arrow,
-              ),
-            ),
-          ),
-          secondChild: Padding(
-            padding: const EdgeInsets.only(left: 45.0),
-            child: secondChild,
-          ),
-          indicatorPosition: IndicatorPosition.center,
-          footerPadding: const EdgeInsets.all(45.0),
-        ),
       ),
     );
   }
