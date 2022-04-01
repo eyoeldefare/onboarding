@@ -1,4 +1,8 @@
-
+## [3.1.0] - 3/11/2022
+* BREAKING CHANGE: implemented a new Footer widget to allow more customization
+* Design your own custom footer instead of being constrained internally
+* Remove un-needed widgets for optimizations
+* Fix a a bug that prevented the index from updating
 
 ## [3.0.0] - 3/11/2022
 * BREAKING CHANGE: implemented a new Footer widget to allow more customization

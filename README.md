@@ -13,14 +13,14 @@ To start using this widget, you will need to first import the package inside you
 
 ```yaml 
   dependencies:
-    onboarding: ^3.0.0+
+    onboarding: ^3.1.0+
 ```
 `$ flutter pub get`
 
-## Breaking Changes Starting V3.0.0
+## Breaking Changes Starting V3.1.0
 
-Please note that versions bellow V3.0.0 will not be supported anymore. Please consider upgrading to V3.0.0+. 
-The new changes offer more customization and flexibility to developers with many functionalities. All the functionalities from previous versions are also included plus more.
+Please note that versions bellow V3.1.0 will not be supported anymore. Please consider upgrading to V3.1.0+. 
+The new changes offer more customization and flexibility to developers with many functionalities. All the functionalities from previous versions are also included. This new change also allows you to build your own custom footer.
 
 Sample examples will be shown bellow from left to right respectively.
 
@@ -40,7 +40,8 @@ To use this widget,
 
 ### Full Sample Example
 ``` dart 
- class MyApp extends StatefulWidget {
+
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
@@ -49,104 +50,183 @@ To use this widget,
 
 class _MyAppState extends State<MyApp> {
   late Material materialButton;
+  late int index;
   final onboardingPagesList = [
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
-            ),
-            child: Image.asset('assets/images/facebook.png',
-                color: pageImageColor),
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'SECURED BACKUP',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
-            ),
+        ),
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 45.0,
+                  vertical: 90.0,
+                ),
+                child: Image.asset('assets/images/facebook.png',
+                    color: pageImageColor),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'SECURED BACKUP',
+                    style: pageTitleStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Keep your files in closed safe so you can\'t lose them. Consider TrueNAS.',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ],
+        ),
       ),
     ),
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
-            ),
-            child:
-                Image.asset('assets/images/twitter.png', color: pageImageColor),
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'CHANGE AND RISE',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
-            ),
+        ),
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 45.0,
+                  vertical: 90.0,
+                ),
+                child: Image.asset('assets/images/twitter.png',
+                    color: pageImageColor),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'CHANGE AND RISE',
+                    style: pageTitleStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Give others access to any file or folders you choose',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Give others access to any file or folders you choose',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ],
+        ),
       ),
     ),
     PageModel(
-      widget: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 45.0,
-              vertical: 90.0,
-            ),
-            child: Image.asset('assets/images/instagram.png',
-                color: pageImageColor),
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 45.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'EASY ACCESS',
-              style: pageTitleStyle,
-              textAlign: TextAlign.left,
-            ),
+        ),
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 45.0,
+                  vertical: 90.0,
+                ),
+                child: Image.asset('assets/images/instagram.png',
+                    color: pageImageColor),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'EASY ACCESS',
+                    style: pageTitleStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Reach your files anytime from any devices anywhere',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Container(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Reach your files anytime from any devices anywhere',
-              style: pageInfoStyle,
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ],
+        ),
       ),
     ),
   ];
@@ -154,28 +234,22 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    materialButton = _skipButton;
+    materialButton = _skipButton();
+    index = 0;
   }
 
-  void _buildButton(int pageIndex) {
-    if (pageIndex == 2) {
-      setState(() {
-        materialButton = _signupButton;
-      });
-    } else {
-      setState(() {
-        materialButton = _skipButton;
-      });
-    }
-  }
-
-  Material get _skipButton {
+  Material _skipButton({void Function(int)? setIndex}) {
     return Material(
       borderRadius: defaultSkipButtonBorderRadius,
       color: defaultSkipButtonColor,
       child: InkWell(
         borderRadius: defaultSkipButtonBorderRadius,
-        onTap: () {},
+        onTap: () {
+          if (setIndex != null) {
+            index = 2;
+            setIndex(2);
+          }
+        },
         child: const Padding(
           padding: defaultSkipButtonPadding,
           child: Text(
@@ -214,28 +288,55 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Onboarding(
-        pages: onboardingPagesList,
-        onPageChange: (int pageIndex) {
-          _buildButton(pageIndex);
-        },
-        footer: Footer(
-          child: materialButton,
-          indicator: Indicator(
-            indicatorDesign: IndicatorDesign.line(
-              lineDesign: LineDesign(
-                lineType: DesignType.line_uniform,
+      home: Scaffold(
+        body: Onboarding(
+          pages: onboardingPagesList,
+          onPageChange: (int pageIndex) {
+            index = pageIndex;
+          },
+          startPageIndex: 0,
+          footerBuilder: (context, dragDistance, pagesLength, setIndex) {
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: background,
+                border: Border.all(
+                  width: 0.0,
+                  color: background,
+                ),
               ),
-            ),
-          ),
-          footerPadding: const EdgeInsets.all(45.0),
+              child: ColoredBox(
+                color: background,
+                child: Padding(
+                  padding: const EdgeInsets.all(45.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomIndicator(
+                        netDragPercent: dragDistance,
+                        pagesLength: pagesLength,
+                        indicator: Indicator(
+                          indicatorDesign: IndicatorDesign.line(
+                            lineDesign: LineDesign(
+                              lineType: DesignType.line_uniform,
+                            ),
+                          ),
+                        ),
+                      ),
+                      index == pagesLength - 1
+                          ? _signupButton
+                          : _skipButton(setIndex: setIndex)
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-    
 ```
 ### Display With Different Indicators
 
@@ -243,79 +344,78 @@ Sample examples of using different indicator types
 
 ``` dart
     indicator: Indicator(
-          indicatorDesign: IndicatorDesign.line(
-            lineDesign: LineDesign(
-              lineType: DesignType.line_uniform,
-            ),
-          ),
-        )
-
+      indicatorDesign: IndicatorDesign.line(
+        lineDesign: LineDesign(
+          lineType: DesignType.line_uniform,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/1.gif" width=300>
 
 ``` dart
     indicator: Indicator(
-          indicatorDesign: IndicatorDesign.line(
-            lineDesign: LineDesign(
-              lineType: DesignType.line_nonuniform,
-            ),
-          ),
-        )
+      indicatorDesign: IndicatorDesign.line(
+        lineDesign: LineDesign(
+          lineType: DesignType.line_nonuniform,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/2.gif" width=300>
 
 ``` dart
     indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygon: DesignType.polygon_arrow,
-            ),
-          ),
-        )
+      indicatorDesign: IndicatorDesign.polygon(
+        polygonDesign: PolygonDesign(
+          polygon: DesignType.polygon_arrow,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/3.gif" width=300>
 
 ``` dart
-   indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygon: DesignType.polygon_circle,
-            ),
-          ),
-        )
+    indicator: Indicator(
+      indicatorDesign: IndicatorDesign.polygon(
+        polygonDesign: PolygonDesign(
+          polygon: DesignType.polygon_circle,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/4.gif" width=300>
 
 ``` dart
     indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygon: DesignType.polygon_diamond,
-            ),
-          ),
-        )
+      indicatorDesign: IndicatorDesign.polygon(
+        polygonDesign: PolygonDesign(
+          polygon: DesignType.polygon_diamond,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/5.gif" width=300>
 
 ``` dart
    indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygon: DesignType.polygon_pentagon,
-            ),
-          ),
-        )
+      indicatorDesign: IndicatorDesign.polygon(
+        polygonDesign: PolygonDesign(
+          polygon: DesignType.polygon_pentagon,
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/6.gif" width=300>
 
 ``` dart
     indicator: Indicator(
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygon: DesignType.polygon_square,
-              polygonSpacer: 14.0
-            ),
-          ),
-        )
+      indicatorDesign: IndicatorDesign.polygon(
+        polygonDesign: PolygonDesign(
+          polygon: DesignType.polygon_square,
+          polygonSpacer: 14.0
+        ),
+      ),
+    )
 ```
 <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/7.gif" width=300>

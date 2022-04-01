@@ -74,10 +74,14 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     if (widget.startPageIndex != oldWidget.startPageIndex &&
         widget.startPageIndex != _currentIndex) {
-      assert(widget.startPageIndex < widget.pages.length);
-      assert(widget.startPageIndex >= 0);
-      _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
+      _checkIndexAssertion(widget.startPageIndex);
     }
+  }
+
+  void _checkIndexAssertion(int index) {
+    assert(index < widget.pages.length);
+    assert(index >= 0);
+    _netDragDistancePercent = index / widget.pages.length;
   }
 
   @override
@@ -131,9 +135,8 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 
   void setIndex(int index) {
-    print(index);
     setState(() {
-      _netDragDistancePercent = index / widget.pages.length;
+      _checkIndexAssertion(index);
     });
   }
 
@@ -154,7 +157,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                   widget.pages.length,
                   setIndex,
                 )
-              : const SizedBox(),
+              : const SizedBox.shrink(),
         ],
       ),
     );
