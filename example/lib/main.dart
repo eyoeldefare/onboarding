@@ -17,15 +17,16 @@ class _MyAppState extends State<MyApp> {
   late int index;
   final onboardingPagesList = [
     PageModel(
-      widget: SingleChildScrollView(
-        child: DecoratedBox(
-          decoration: BoxDecoration(
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
             color: background,
-            border: Border.all(
-              width: 0.0,
-              color: background,
-            ),
           ),
+        ),
+        child: SingleChildScrollView(
+          controller: ScrollController(),
           child: Column(
             children: [
               Padding(
@@ -105,39 +106,42 @@ class _MyAppState extends State<MyApp> {
             color: background,
           ),
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 45.0,
+                  vertical: 90.0,
+                ),
+                child: Image.asset('assets/images/twitter.png',
+                    color: pageImageColor),
               ),
-              child: Image.asset('assets/images/twitter.png',
-                  color: pageImageColor),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'CHANGE AND RISE',
-                  style: pageTitleStyle,
-                  textAlign: TextAlign.left,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'CHANGE AND RISE',
+                    style: pageTitleStyle,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Give others access to any file or folders you choose',
-                  style: pageInfoStyle,
-                  textAlign: TextAlign.left,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Give others access to any file or folders you choose',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),
@@ -150,39 +154,42 @@ class _MyAppState extends State<MyApp> {
             color: background,
           ),
         ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 45.0,
-                vertical: 90.0,
+        child: SingleChildScrollView(
+          controller: ScrollController(),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 45.0,
+                  vertical: 90.0,
+                ),
+                child: Image.asset('assets/images/instagram.png',
+                    color: pageImageColor),
               ),
-              child: Image.asset('assets/images/instagram.png',
-                  color: pageImageColor),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'EASY ACCESS',
-                  style: pageTitleStyle,
-                  textAlign: TextAlign.left,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'EASY ACCESS',
+                    style: pageTitleStyle,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Reach your files anytime from any devices anywhere',
-                  style: pageInfoStyle,
-                  textAlign: TextAlign.left,
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 45.0, vertical: 10.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Reach your files anytime from any devices anywhere',
+                    style: pageInfoStyle,
+                    textAlign: TextAlign.left,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     ),
