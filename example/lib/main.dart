@@ -14,12 +14,18 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late Material materialButton;
-  late int startIndex;
+  late int index;
   final onboardingPagesList = [
     PageModel(
       widget: SingleChildScrollView(
-        child: ColoredBox(
-          color: background,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: background,
+            border: Border.all(
+              width: 0.0,
+              color: background,
+            ),
+          ),
           child: Column(
             children: [
               Padding(
@@ -91,8 +97,14 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
     PageModel(
-      widget: ColoredBox(
-        color: background,
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
+          ),
+        ),
         child: Column(
           children: [
             Padding(
@@ -130,8 +142,14 @@ class _MyAppState extends State<MyApp> {
       ),
     ),
     PageModel(
-      widget: ColoredBox(
-        color: background,
+      widget: DecoratedBox(
+        decoration: BoxDecoration(
+          color: background,
+          border: Border.all(
+            width: 0.0,
+            color: background,
+          ),
+        ),
         child: Column(
           children: [
             Padding(
@@ -174,30 +192,19 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     materialButton = _skipButton();
-    startIndex = 0;
+    index = 0;
   }
 
-  set _buildButton(int pageIndex) {
-    if (pageIndex == 2) {
-      setState(() {
-        materialButton = _signupButton;
-      });
-    } else {
-      setState(() {
-        materialButton = _skipButton();
-      });
-    }
-  }
-
-  Material _skipButton({void Function(int index)? onTap}) {
+  Material _skipButton({void Function(int)? setIndex}) {
     return Material(
       borderRadius: defaultSkipButtonBorderRadius,
       color: defaultSkipButtonColor,
       child: InkWell(
         borderRadius: defaultSkipButtonBorderRadius,
         onTap: () {
-          if (onTap != null) {
-            onTap(2);
+          if (setIndex != null) {
+            index = 2;
+            setIndex(2);
           }
         },
         child: const Padding(
@@ -242,31 +249,41 @@ class _MyAppState extends State<MyApp> {
         body: Onboarding(
           pages: onboardingPagesList,
           onPageChange: (int pageIndex) {
-            _buildButton = pageIndex;
+            index = pageIndex;
           },
-          startPageIndex: startIndex,
+          startPageIndex: 0,
           footerBuilder: (context, dragDistance, pagesLength, setIndex) {
-            return ColoredBox(
-              color: background,
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    _skipButton(onTap: setIndex),
-                    CustomIndicator(
-                      netDragPercent: dragDistance,
-                      pagesLength: pagesLength,
-                      indicator: Indicator(
-                        indicatorDesign: IndicatorDesign.polygon(
-                          polygonDesign: PolygonDesign(
-                            polygon: DesignType.polygon_circle,
+            return DecoratedBox(
+              decoration: BoxDecoration(
+                color: background,
+                border: Border.all(
+                  width: 0.0,
+                  color: background,
+                ),
+              ),
+              child: ColoredBox(
+                color: background,
+                child: Padding(
+                  padding: const EdgeInsets.all(45.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CustomIndicator(
+                        netDragPercent: dragDistance,
+                        pagesLength: pagesLength,
+                        indicator: Indicator(
+                          indicatorDesign: IndicatorDesign.line(
+                            lineDesign: LineDesign(
+                              lineType: DesignType.line_uniform,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    _signupButton,
-                  ],
+                      index == pagesLength - 1
+                          ? _signupButton
+                          : _skipButton(setIndex: setIndex)
+                    ],
+                  ),
                 ),
               ),
             );
