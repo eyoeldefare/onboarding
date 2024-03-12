@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 //---------Animation Duration-----------
 
-const animationDuration = Duration(milliseconds: 200);
-
 //---------Onboarding------------
 const background = Color.fromARGB(255, 35, 35, 35);
 const footerPadding = EdgeInsets.only(left: 45.0, right: 45.0, bottom: 45.0);

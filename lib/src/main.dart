@@ -1,37 +1,43 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import '../onboarding.dart';
-import 'utils/constant_util.dart' as util;
+import 'paint.dart';
 
-typedef T FooterBuilder<T>(
+typedef Widget BuiltHeader(
   BuildContext context,
   double netDragDistance,
   int pagesLength,
+  int currentIndex,
+  void Function(int index) setPageIndex,
+);
+
+typedef Widget BuildFooter(
+  BuildContext context,
+  double netDragDistance,
+  int pagesLength,
+  int currentIndex,
   void Function(int index) setIndex,
 );
 
+typedef void OnPageChanges(int currentIndex);
+
 class Onboarding extends StatefulWidget {
-  ///Add pages that are displayed
-  final List<PageModel> pages;
-
-  ///Callback function on page transition which allows you to take actions based on the current page
-  final Function(int pageIndex)? onPageChange;
-
-  ///The index of the page you want to start with (default starts with 0)
-  final int startPageIndex;
-
-  ///Build footer
-  final FooterBuilder? footerBuilder;
+  final BuiltHeader? builtHeader;
+  final BuildFooter? buildFooter;
+  final OnPageChanges? onPageChanges;
+  final List<Widget> swipeableBody;
+  final int currentIndex;
+  final int animationInMilliseconds;
 
   const Onboarding({
     Key? key,
-    required this.pages,
-    this.startPageIndex = 0,
-    this.onPageChange,
-    this.footerBuilder,
-  })  : assert(startPageIndex < pages.length),
-        assert(startPageIndex >= 0),
+    this.builtHeader,
+    required this.swipeableBody,
+    this.buildFooter,
+    this.onPageChanges,
+    this.currentIndex = 0,
+    this.animationInMilliseconds = 300,
+  })  : assert(currentIndex < swipeableBody.length),
+        assert(currentIndex >= 0),
         super(key: key);
 
   @override
@@ -43,52 +49,47 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _dragStartPercent;
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
-  late AnimationController? _animationController;
-
+  late AnimationController _animationController;
   @override
   void initState() {
     super.initState();
 
-    _netDragDistancePercent = widget.startPageIndex / widget.pages.length;
+    _netDragDistancePercent = widget.currentIndex / getPagesLength;
 
     _animationController = AnimationController(
-      duration: util.animationDuration,
+      duration: Duration(milliseconds: widget.animationInMilliseconds),
       animationBehavior: AnimationBehavior.preserve,
       vsync: this,
     );
 
-    _animationController?.addListener(() {
+    _animationController.addListener(() {
       final double? nddp = lerpDouble(_finishedDragStartPercent,
-          _finishedDragEndPercent, _animationController!.value);
+          _finishedDragEndPercent, _animationController.value);
       setState(() {
         _netDragDistancePercent = nddp!;
       });
     });
   }
 
-  int get _currentIndex =>
-      (_netDragDistancePercent / (1 / widget.pages.length)).round();
+  int get getPagesLength => widget.swipeableBody.length;
+  int get getCurrentIndex =>
+      (_netDragDistancePercent / (1 / getPagesLength)).round();
 
   @override
   void didUpdateWidget(covariant Onboarding oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.startPageIndex != oldWidget.startPageIndex &&
-        widget.startPageIndex != _currentIndex) {
-      _checkIndexAssertion(widget.startPageIndex);
+    if (widget.currentIndex != oldWidget.currentIndex &&
+        widget.currentIndex != getCurrentIndex &&
+        widget.currentIndex < getPagesLength &&
+        widget.currentIndex >= 0) {
+      _netDragDistancePercent = widget.currentIndex / getPagesLength;
     }
-  }
-
-  void _checkIndexAssertion(int index) {
-    assert(index < widget.pages.length);
-    assert(index >= 0);
-    _netDragDistancePercent = index / widget.pages.length;
   }
 
   @override
   void dispose() {
     super.dispose();
-    _animationController?.dispose();
-    _animationController = null;
+    _animationController.dispose();
   }
 
   void _onHorizontalDragStart(DragStartDetails details) {
@@ -97,69 +98,128 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
-    final int _pagesLength = widget.pages.length;
-
     final Offset currentPosition = details.globalPosition;
     final double dragedDistance = currentPosition.dx - _dragStartPosition.dx;
     final double screenWidth = context.size!.width;
     final double dragDistancePercent = dragedDistance / screenWidth;
     final double nddp =
-        (_dragStartPercent + (-dragDistancePercent / _pagesLength))
-            .clamp(0.0, 1.0 - (1 / _pagesLength));
+        (_dragStartPercent + (-dragDistancePercent / getPagesLength))
+            .clamp(0.0, 1.0 - (1 / getPagesLength));
     setState(() {
       _netDragDistancePercent = nddp;
     });
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
-    final int _pagesLength = widget.pages.length;
-
     _finishedDragStartPercent = _netDragDistancePercent;
     _finishedDragEndPercent =
-        (_netDragDistancePercent * _pagesLength).round() / _pagesLength;
-    _animationController!.forward(from: 0.0);
-    widget.onPageChange!(_currentIndex);
+        (_netDragDistancePercent * getPagesLength).round() / getPagesLength;
+    _animationController.forward(from: 0.0);
+    if (widget.onPageChanges != null) {
+      widget.onPageChanges!(getCurrentIndex);
+    }
   }
 
-  List<OnboardPage> get _getPages {
-    final _pagesLength = widget.pages.length;
+  Widget get buildHeader {
+    return widget.builtHeader != null
+        ? widget.builtHeader!(
+            context,
+            _netDragDistancePercent,
+            getPagesLength,
+            getCurrentIndex,
+            setIndex,
+          )
+        : const SizedBox.shrink();
+  }
+
+  List<BodyWidget> get buildBody {
     int index = 0;
-    return widget.pages.map((PageModel pageModel) {
-      return OnboardPage(
-        pageModel: pageModel,
-        index: index++,
+    return widget.swipeableBody.map((body) {
+      return BodyWidget(
+        widget: body,
         dragPercent: _netDragDistancePercent,
-        pagesLength: _pagesLength,
+        index: index++,
+        pagesLength: getPagesLength,
       );
     }).toList();
   }
 
+  Widget get buildFooter {
+    return widget.buildFooter != null
+        ? widget.buildFooter!(
+            context,
+            _netDragDistancePercent,
+            getPagesLength,
+            getCurrentIndex,
+            setIndex,
+          )
+        : const SizedBox.shrink();
+  }
+
   void setIndex(int index) {
-    setState(() {
-      _checkIndexAssertion(index);
-    });
+    if (index != getCurrentIndex && index < getPagesLength && index >= 0) {
+      setState(() {
+        _netDragDistancePercent = index / getPagesLength;
+      });
+    }
+    // we could possibly throw exceptions if need be
+    // else {
+    //   throw Exception('#Error');
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    final fb = widget.footerBuilder;
     return GestureDetector(
       onHorizontalDragStart: _onHorizontalDragStart,
       onHorizontalDragUpdate: _onHorizontalDragUpdate,
       onHorizontalDragEnd: _onHorizontalDragEnd,
       child: Column(
         children: [
-          Expanded(child: Stack(children: _getPages)),
-          fb != null
-              ? fb(
-                  context,
-                  _netDragDistancePercent,
-                  widget.pages.length,
-                  setIndex,
-                )
-              : const SizedBox.shrink(),
+          buildHeader,
+          Expanded(child: Stack(children: buildBody)),
+          buildFooter,
         ],
       ),
+    );
+  }
+}
+
+class BodyWidget extends StatelessWidget {
+  final Widget widget;
+  final double dragPercent;
+  final int index;
+  final int pagesLength;
+
+  const BodyWidget({
+    Key? key,
+    required this.widget,
+    required this.index,
+    required this.pagesLength,
+    required this.dragPercent,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    final singlePageScrollPercentage = dragPercent / (1 / pagesLength);
+    return FractionalTranslation(
+      translation: Offset(index - singlePageScrollPercentage, 0.0),
+      child: widget,
+    );
+  }
+}
+
+class Indicator<T extends ShapePainter> extends StatelessWidget {
+  final T painter;
+
+  const Indicator({
+    Key? key,
+    required this.painter,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return CustomPaint(
+      painter: painter,
+      child: const SizedBox.shrink(),
     );
   }
 }

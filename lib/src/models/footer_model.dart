@@ -11,6 +11,115 @@ enum DesignType {
   line_nonuniform,
 }
 
+// abstract class IndicatorInterface {
+//   double get radius;
+//   double get spacer;
+//   int get sides;
+//   double? get rotation;
+//   double get width;
+// }
+
+// enum IndicatorShape { polygon, uniform_line, broken_line }
+
+class Something<T extends Indicator1> {
+  final T data;
+
+  const Something({required this.data});
+
+  cool() {
+    return Something<Polygon>(data: Polygon());
+  }
+
+  coo() {
+    return Something<UniformLine>(data: UniformLine());
+  }
+
+  co() {
+    return Something<BrokenLine>(data: BrokenLine());
+  }
+}
+
+class Polygon extends Indicator1 {
+  final double polygonRadius;
+  final double polygonSpacer;
+  final int polygonSides;
+  final double? polygonRotationInDegrees; //3
+
+  const Polygon({
+    this.polygonRadius = 7.0,
+    this.polygonSpacer = 21.0,
+    this.polygonSides = 20,
+    this.polygonRotationInDegrees = null,
+    final Color? activeIndicatorColor,
+    final double? activeIndicatorStrokeWidth,
+    final Color? closedIndicatorColor,
+    final double? closedIndicatorStrokeWidth,
+  }) : super(
+          activeIndicatorColor: activeIndicatorColor,
+          activeIndicatorStrokeWidth: activeIndicatorStrokeWidth,
+          closedIndicatorColor: closedIndicatorColor,
+          closedIndicatorStrokeWidth: closedIndicatorStrokeWidth,
+        );
+}
+
+class UniformLine extends Indicator1 {
+  final double linesWidth;
+  const UniformLine({
+    this.linesWidth = 19.0,
+    final Color? activeIndicatorColor,
+    final double? activeIndicatorStrokeWidth,
+    final Color? closedIndicatorColor,
+    final double? closedIndicatorStrokeWidth,
+  }) : super(
+          activeIndicatorColor: activeIndicatorColor,
+          activeIndicatorStrokeWidth: activeIndicatorStrokeWidth,
+          closedIndicatorColor: closedIndicatorColor,
+          closedIndicatorStrokeWidth: closedIndicatorStrokeWidth,
+        );
+}
+
+class BrokenLine extends Indicator1 {
+  final double linesWidth;
+  final double brokenLineSpacer;
+
+  const BrokenLine({
+    this.linesWidth = 19.0,
+    this.brokenLineSpacer = 35.0,
+    final Color? activeIndicatorColor,
+    final double? activeIndicatorStrokeWidth,
+    final Color? closedIndicatorColor,
+    final double? closedIndicatorStrokeWidth,
+  }) : super(
+          activeIndicatorColor: activeIndicatorColor,
+          activeIndicatorStrokeWidth: activeIndicatorStrokeWidth,
+          closedIndicatorColor: closedIndicatorColor,
+          closedIndicatorStrokeWidth: closedIndicatorStrokeWidth,
+        );
+}
+
+abstract class Indicator1 {
+  final Color activeIndicatorColor;
+  final double activeIndicatorStrokeWidth;
+  final Color closedIndicatorColor;
+  final double closedIndicatorStrokeWidth;
+
+  const Indicator1({
+    final Color? activeIndicatorColor,
+    final double? activeIndicatorStrokeWidth,
+    final Color? closedIndicatorColor,
+    final double? closedIndicatorStrokeWidth,
+  })  : closedIndicatorColor =
+            closedIndicatorColor == null ? Colors.grey : closedIndicatorColor,
+        activeIndicatorColor =
+            activeIndicatorColor == null ? Colors.white : activeIndicatorColor,
+        activeIndicatorStrokeWidth = activeIndicatorStrokeWidth == null
+            ? 0.7
+            : activeIndicatorStrokeWidth,
+        closedIndicatorStrokeWidth = closedIndicatorStrokeWidth == null
+            ? 0.7
+            : closedIndicatorStrokeWidth;
+}
+
 class Indicator {
   ///Add a design for the active indicator style. The active indicator is when the index is on the current page. The default is [const ActiveIndicator(color: Colors.grey, borderWidth: 0.7)]
   final ActiveIndicator activeIndicator;
@@ -78,9 +187,10 @@ class PolygonDesign {
     this.polygonRadius = 7.0,
     this.polygonSpacer = 21.0,
   }) : assert(
-            polygon != DesignType.line_nonuniform ||
-                polygon != DesignType.line_uniform,
-            "polygon can not be 'DesignType.line' or 'DesignType.uniform_line'");
+          polygon != DesignType.line_nonuniform ||
+              polygon != DesignType.line_uniform,
+          "polygon can not be 'DesignType.line' or 'DesignType.uniform_line'",
+        );
 }
 
 class LineDesign {
