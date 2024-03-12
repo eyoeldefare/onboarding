@@ -495,8 +495,8 @@ class _LineExampleState extends State<LineExample> {
       ),
       home: Scaffold(
         body: Onboarding(
-          currentIndex: 0,
-          onPageChanges: (currentIndex) {
+          startIndex: 0,
+          onPageChanges: (_, __, currentIndex) {
             index = currentIndex;
           },
           builtHeader: (context, netDragDistance, pagesLength, currentIndex,
@@ -522,14 +522,15 @@ class _LineExampleState extends State<LineExample> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Indicator<LineDrawer>(
-                        painter: LineDrawer(
+                      Indicator<LinePainter>(
+                        painter: LinePainter(
                           currentPageIndex: currentIndex,
                           pagesLength: pagesLength,
                           netDragPercent: dragDistance,
                           activePainter: activePainter,
                           inactivePainter: inactivePainter,
                           lineWidth: 20,
+                          showAllActiveIndicators: true,
                         ),
                       ),
                       index == pagesLength - 1
@@ -838,7 +839,8 @@ class _TriangleExampleState extends State<TriangleExample> {
       home: Scaffold(
         body: Onboarding(
           swipeableBody: onboardingPagesList,
-          onPageChanges: (currentIndex) {
+          startIndex: 0,
+          onPageChanges: (_, __, currentIndex) {
             index = currentIndex;
           },
           buildFooter:
@@ -863,8 +865,8 @@ class _TriangleExampleState extends State<TriangleExample> {
                           : const SizedBox(width: width),
                       Padding(
                         padding: const EdgeInsets.only(right: 45.0),
-                        child: Indicator<TriangleDrawer>(
-                          painter: TriangleDrawer(
+                        child: Indicator<TrianglePainter>(
+                          painter: TrianglePainter(
                             currentPageIndex: currentIndex,
                             pagesLength: pagesLength,
                             netDragPercent: dragDistance,
@@ -1152,8 +1154,9 @@ class _CircleExampleState extends State<CircleExample> {
       home: Scaffold(
         body: Onboarding(
           swipeableBody: onboardingPagesList,
-          onPageChanges: (pageIndex) {
-            index = pageIndex;
+          startIndex: 0,
+          onPageChanges: (_, __, currentIndex) {
+            index = currentIndex;
           },
           buildFooter:
               (context, dragDistance, pagesLength, currentIndex, setIndex) {
@@ -1177,8 +1180,8 @@ class _CircleExampleState extends State<CircleExample> {
                           : _signupButton,
                       Padding(
                         padding: const EdgeInsets.only(right: 45.0),
-                        child: Indicator<CircleDrawer>(
-                          painter: CircleDrawer(
+                        child: Indicator<CirclePainter>(
+                          painter: CirclePainter(
                             currentPageIndex: currentIndex,
                             pagesLength: pagesLength,
                             netDragPercent: dragDistance,
@@ -1467,8 +1470,9 @@ class _SquareExampleState extends State<SquareExample> {
       home: Scaffold(
         body: Onboarding(
             swipeableBody: onboardingPagesList,
-            onPageChanges: (pageIndex) {
-              index = pageIndex;
+            startIndex: 0,
+            onPageChanges: (_, __, currentIndex) {
+              index = currentIndex;
             },
             buildFooter:
                 (context, dragDistance, pagesLength, currentIndex, setIndex) {
@@ -1492,8 +1496,8 @@ class _SquareExampleState extends State<SquareExample> {
                             : _signupButton,
                         Padding(
                           padding: const EdgeInsets.only(right: 45.0),
-                          child: Indicator<SquareDrawer>(
-                            painter: SquareDrawer(
+                          child: Indicator<SquarePainter>(
+                            painter: SquarePainter(
                               currentPageIndex: index,
                               pagesLength: pagesLength,
                               netDragPercent: dragDistance,
@@ -1501,6 +1505,7 @@ class _SquareExampleState extends State<SquareExample> {
                               inactivePainter: inactivePainter,
                               space: 5,
                               width: 10,
+                              showAllActiveIndicators: true,
                             ),
                           ),
                         ),

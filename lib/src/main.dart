@@ -18,14 +18,18 @@ typedef Widget BuildFooter(
   void Function(int index) setIndex,
 );
 
-typedef void OnPageChanges(int currentIndex);
+typedef void OnPageChanges(
+  double netDragDistance,
+  int pagesLength,
+  int currentIndex,
+);
 
 class Onboarding extends StatefulWidget {
   final BuiltHeader? builtHeader;
   final BuildFooter? buildFooter;
   final OnPageChanges? onPageChanges;
   final List<Widget> swipeableBody;
-  final int currentIndex;
+  final int startIndex;
   final int animationInMilliseconds;
 
   const Onboarding({
@@ -34,10 +38,10 @@ class Onboarding extends StatefulWidget {
     required this.swipeableBody,
     this.buildFooter,
     this.onPageChanges,
-    this.currentIndex = 0,
+    this.startIndex = 0,
     this.animationInMilliseconds = 300,
-  })  : assert(currentIndex < swipeableBody.length),
-        assert(currentIndex >= 0),
+  })  : assert(startIndex < swipeableBody.length),
+        assert(startIndex >= 0),
         super(key: key);
 
   @override
@@ -50,11 +54,12 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
   late AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
 
-    _netDragDistancePercent = widget.currentIndex / getPagesLength;
+    _netDragDistancePercent = widget.startIndex / getPagesLength;
 
     _animationController = AnimationController(
       duration: Duration(milliseconds: widget.animationInMilliseconds),
@@ -78,11 +83,11 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(covariant Onboarding oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.currentIndex != oldWidget.currentIndex &&
-        widget.currentIndex != getCurrentIndex &&
-        widget.currentIndex < getPagesLength &&
-        widget.currentIndex >= 0) {
-      _netDragDistancePercent = widget.currentIndex / getPagesLength;
+    if (widget.startIndex != oldWidget.startIndex &&
+        widget.startIndex != getCurrentIndex &&
+        widget.startIndex < getPagesLength &&
+        widget.startIndex >= 0) {
+      _netDragDistancePercent = widget.startIndex / getPagesLength;
     }
   }
 
@@ -116,19 +121,15 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
         (_netDragDistancePercent * getPagesLength).round() / getPagesLength;
     _animationController.forward(from: 0.0);
     if (widget.onPageChanges != null) {
-      widget.onPageChanges!(getCurrentIndex);
+      widget.onPageChanges!(
+          _netDragDistancePercent, getPagesLength, getCurrentIndex);
     }
   }
 
   Widget get buildHeader {
     return widget.builtHeader != null
-        ? widget.builtHeader!(
-            context,
-            _netDragDistancePercent,
-            getPagesLength,
-            getCurrentIndex,
-            setIndex,
-          )
+        ? widget.builtHeader!(context, _netDragDistancePercent, getPagesLength,
+            getCurrentIndex, setIndex)
         : const SizedBox.shrink();
   }
 
@@ -146,13 +147,8 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   Widget get buildFooter {
     return widget.buildFooter != null
-        ? widget.buildFooter!(
-            context,
-            _netDragDistancePercent,
-            getPagesLength,
-            getCurrentIndex,
-            setIndex,
-          )
+        ? widget.buildFooter!(context, _netDragDistancePercent, getPagesLength,
+            getCurrentIndex, setIndex)
         : const SizedBox.shrink();
   }
 
