@@ -181,7 +181,7 @@ class CirclePainter extends ShapePainter {
 }
 
 class LinePainter extends ShapePainter {
-  final lineWidth;
+  final double lineWidth;
   LinePainter({
     required final int pagesLength,
     required final double netDragPercent,

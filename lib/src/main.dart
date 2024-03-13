@@ -25,7 +25,7 @@ typedef void OnPageChanges(
 );
 
 class Onboarding extends StatefulWidget {
-  final BuiltHeader? builtHeader;
+  final BuiltHeader? buildHeader;
   final BuildFooter? buildFooter;
   final OnPageChanges? onPageChanges;
   final List<Widget> swipeableBody;
@@ -34,7 +34,7 @@ class Onboarding extends StatefulWidget {
 
   const Onboarding({
     Key? key,
-    this.builtHeader,
+    this.buildHeader,
     required this.swipeableBody,
     this.buildFooter,
     this.onPageChanges,
@@ -127,16 +127,16 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 
   Widget get buildHeader {
-    return widget.builtHeader != null
-        ? widget.builtHeader!(context, _netDragDistancePercent, getPagesLength,
+    return widget.buildHeader != null
+        ? widget.buildHeader!(context, _netDragDistancePercent, getPagesLength,
             getCurrentIndex, setIndex)
         : const SizedBox.shrink();
   }
 
-  List<BodyWidget> get buildBody {
+  List<_BodyWidget> get buildBody {
     int index = 0;
     return widget.swipeableBody.map((body) {
-      return BodyWidget(
+      return _BodyWidget(
         widget: body,
         dragPercent: _netDragDistancePercent,
         index: index++,
@@ -181,13 +181,13 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   }
 }
 
-class BodyWidget extends StatelessWidget {
+class _BodyWidget extends StatelessWidget {
   final Widget widget;
   final double dragPercent;
   final int index;
   final int pagesLength;
 
-  const BodyWidget({
+  const _BodyWidget({
     Key? key,
     required this.widget,
     required this.index,
