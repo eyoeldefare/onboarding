@@ -54,7 +54,11 @@ This widget uses the custom painter class to render the page changing indicators
 ### Examples with default indicators
 These examples are using the default indicator painter that come with this widget
 
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_1.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_2.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_3.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_4.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_5.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_6.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_7.gif" width=250> <img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_8.gif" width=250>
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_1.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_2.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_3.gif" width=250> 
+
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_4.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_5.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_6.gif" width=250> 
+
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_7.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_8.gif" width=250>
 
 #### Sample Indicator Usage
 Once you have decided to place your indicator in your app, simple pick your indicator painter choice from `LinePainter`, `TrianglePainter`, `CirclePainter`, `SquarePainter`, or your own custom painter and use it like the example bellow showing `LinePainter` painter example.
@@ -145,4 +149,4 @@ Indicator<MyCustomIndicatorPainter>(
   ),
 )
 ```
-<img src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_9.gif" width=250>
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_9.gif" width=250>
