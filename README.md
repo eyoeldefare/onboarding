@@ -14,7 +14,7 @@ To get started using this widget, you will need to first import the package insi
 
 ```yaml 
   dependencies:
-    onboarding: ^3.2.0+
+    onboarding: ^4.0.0+
 ```
 `$ flutter pub get`
 

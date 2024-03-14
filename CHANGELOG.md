@@ -1,3 +1,8 @@
+## [4.0.0] - 3/13/2024
+* Remodeled the whole widget to allow users to use custom indicators
+* Allow a header builder as an option to place indicators and other widgets on top header
+* Other minor fixes on how the app functions
+
 ## [3.1.0] - 3/11/2022
 * BREAKING CHANGE: implemented a new Footer widget to allow more customization
 * Design your own custom footer instead of being constrained internally
