@@ -14,7 +14,7 @@ To get started using this widget, you will need to first import the package insi
 
 ```yaml 
   dependencies:
-    onboarding: ^4.0.1+
+    onboarding: ^4.0.2+
 ```
 `$ flutter pub get`
 
@@ -58,7 +58,7 @@ These examples are using the default indicator painter that come with this widge
 
 <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_4.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_5.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_6.gif" width=250> 
 
-<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_7.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_8.gif" width=250>
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_7.gif" width=250>
 
 #### Sample Indicator Usage
 Once you have decided to place your indicator in your app, simple pick your indicator painter choice from `LinePainter`, `TrianglePainter`, `CirclePainter`, `SquarePainter`, or your own custom painter and use it like the example bellow showing `LinePainter` painter example.
@@ -113,6 +113,11 @@ class MyCustomIndicatorPainter extends ShapePainter {
     return oldDelegate.lineWidth != this.lineWidth;
   }
 
+  /*This helps to paint anything before the active and inactive indicators are painted,
+    this means you can do transformations, translations, animations, etc that will affect 
+    the enviroment the indicators will be painted on. In the example bellow, we're transforming the canvas
+    the indicators are build on to transform horizontally based on the net drag
+  */
   @override
   beforeIndicatorsRender(Canvas canvas, Size size) {
     if (translate) {
@@ -121,6 +126,8 @@ class MyCustomIndicatorPainter extends ShapePainter {
     }
   }
 
+  /*This will paint the active indicators as the name suggests
+  */
   @override
   paintActiveIndicators(Canvas canvas, Size size, Paint paint, Path path) {
     final activeOffset1 = Offset(netDragPercent * lineWidth * pagesLength, 0.0);
@@ -128,6 +135,8 @@ class MyCustomIndicatorPainter extends ShapePainter {
     canvas.drawLine(activeOffset1, activeOffset2, paint);
   }
 
+  /*This will paint the in-active indicators
+  */
   @override
   paintInactiveIndicators(Canvas canvas, Size size, Paint paint, Path path) {
     final inActiveOffset = Offset(lineWidth * pagesLength, 0.0);
@@ -136,7 +145,7 @@ class MyCustomIndicatorPainter extends ShapePainter {
 }
 
 
-//Now to use it inside your app, simply call it like a regular widget:
+//Now to use your new painter indicator, wrap it inside the Indicator class and simply call it like a regular widget in your app:
 Indicator<MyCustomIndicatorPainter>(
   painter: MyCustomIndicatorPainter(
     currentPageIndex: currentIndex,
@@ -149,4 +158,4 @@ Indicator<MyCustomIndicatorPainter>(
   ),
 )
 ```
-<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_9.gif" width=250>
+<img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_8.gif" width=250>

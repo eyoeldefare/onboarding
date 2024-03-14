@@ -1,3 +1,7 @@
+## [4.0.2] - 3/13/2024
+* Removed example 5 image
+* Improve readme custom painter example 
+
 ## [4.0.1] - 3/13/2024
 * Optimise example images
 
