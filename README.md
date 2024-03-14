@@ -52,7 +52,7 @@ Onboarding(
 This widget uses the custom painter class to render the page changing indicators used to show the progress of the pages swiped. As such, we've designed this widget to enable you to access the `CustomerPainter`'s functionalities through the `ShapePainter` class to be able to draw your own custom indicators. By default, the widget comes with 4 simple painters that render commonly used shapes. The 4 default painters are `LinePainter`, `CirclePainter`, `SquarePainter`, and `TrianglePainter`. All the example UIs shown bellow are using these painters and there are examples in the example folder showing you how to use these indicators.
 
 ### Examples with default indicators
-These examples are using the default indicator painter that come with this widget
+These examples are using the default indicator painter that come with this widget.
 
 <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_1.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_2.gif" width=250> <img loading="lazy" src="https://raw.githubusercontent.com/eyoeldefare/onboarding/main/images/example_3.gif" width=250> 
 

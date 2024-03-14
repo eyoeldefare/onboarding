@@ -155,11 +155,9 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       setState(() {
         _netDragDistancePercent = index / getPagesLength;
       });
+    } else if (index >= getPagesLength || index < 0) {
+      throw Exception('Enter a proper page index');
     }
-    // we could possibly throw exceptions if need be
-    // else {
-    //   throw Exception('#Error');
-    // }
   }
 
   Widget get buildHeader {
