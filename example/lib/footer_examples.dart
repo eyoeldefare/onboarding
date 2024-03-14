@@ -318,12 +318,12 @@ class _LineFooterIndicatorState extends State<LineFooterIndicator> {
       home: Scaffold(
         body: Onboarding(
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           swipeableBody: onboardingPagesList,
           buildFooter:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -347,6 +347,7 @@ class _LineFooterIndicatorState extends State<LineFooterIndicator> {
                           netDragPercent: dragDistance,
                           activePainter: activePainter,
                           inactivePainter: inactivePainter,
+                          slideDirection: sd,
                           lineWidth: 20,
                         ),
                       ),
@@ -384,12 +385,12 @@ class _TriangleFooterIndicatorState extends State<TriangleFooterIndicator> {
     super.initState();
     index = 0;
     activePainter.color = Colors.white;
-    activePainter.strokeWidth = 0.7;
+    activePainter.strokeWidth = 1;
     activePainter.strokeCap = StrokeCap.round;
     activePainter.style = PaintingStyle.fill;
 
     inactivePainter.color = pageImageColor;
-    inactivePainter.strokeWidth = 0.7;
+    inactivePainter.strokeWidth = 1;
     inactivePainter.strokeCap = StrokeCap.round;
     inactivePainter.style = PaintingStyle.stroke;
   }
@@ -484,11 +485,11 @@ class _TriangleFooterIndicatorState extends State<TriangleFooterIndicator> {
         body: Onboarding(
           swipeableBody: onboardingPagesList,
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           buildFooter:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -510,7 +511,7 @@ class _TriangleFooterIndicatorState extends State<TriangleFooterIndicator> {
                           : const SizedBox(width: width),
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: 10, right: 80),
                           alignment: Alignment.centerLeft,
                           child: Indicator<TrianglePainter>(
                             painter: TrianglePainter(
@@ -519,6 +520,7 @@ class _TriangleFooterIndicatorState extends State<TriangleFooterIndicator> {
                               netDragPercent: dragDistance,
                               activePainter: activePainter,
                               inactivePainter: inactivePainter,
+                              slideDirection: sd,
                               showAllActiveIndicators: false,
                             ),
                           ),
@@ -632,11 +634,11 @@ class _CircleFooterIndicatorState extends State<CircleFooterIndicator> {
         body: Onboarding(
           swipeableBody: onboardingPagesList,
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           buildFooter:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -665,6 +667,7 @@ class _CircleFooterIndicatorState extends State<CircleFooterIndicator> {
                             netDragPercent: dragDistance,
                             activePainter: activePainter,
                             inactivePainter: inactivePainter,
+                            slideDirection: sd,
                             radius: 5.0,
                             space: 10.0,
                             showAllActiveIndicators: false,
@@ -777,11 +780,11 @@ class _SquareFooterIndicatorState extends State<SquareFooterIndicator> {
         body: Onboarding(
             swipeableBody: onboardingPagesList,
             startIndex: 0,
-            onPageChanges: (_, __, currentIndex) {
+            onPageChanges: (_, __, currentIndex, sd) {
               index = currentIndex;
             },
-            buildFooter:
-                (context, dragDistance, pagesLength, currentIndex, setIndex) {
+            buildFooter: (context, dragDistance, pagesLength, currentIndex,
+                setIndex, sd) {
               return DecoratedBox(
                 decoration: BoxDecoration(
                   color: background,
@@ -810,6 +813,7 @@ class _SquareFooterIndicatorState extends State<SquareFooterIndicator> {
                               netDragPercent: dragDistance,
                               activePainter: activePainter,
                               inactivePainter: inactivePainter,
+                              slideDirection: sd,
                               space: 5,
                               width: 10,
                               showAllActiveIndicators: false,

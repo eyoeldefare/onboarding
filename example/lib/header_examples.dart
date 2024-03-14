@@ -298,12 +298,12 @@ class _LineHeaderIndicatorState extends State<LineHeaderIndicator> {
       home: Scaffold(
         body: Onboarding(
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           swipeableBody: onboardingPagesList,
           buildHeader:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -327,7 +327,9 @@ class _LineHeaderIndicatorState extends State<LineHeaderIndicator> {
                           netDragPercent: dragDistance,
                           activePainter: activePainter,
                           inactivePainter: inactivePainter,
+                          slideDirection: sd,
                           lineWidth: 20,
+                          translate: false,
                         ),
                       ),
                       index == pagesLength - 1
@@ -364,12 +366,12 @@ class _TriangleHeaderIndicatorState extends State<TriangleHeaderIndicator> {
     super.initState();
     index = 0;
     activePainter.color = Colors.white;
-    activePainter.strokeWidth = 0.7;
+    activePainter.strokeWidth = 1;
     activePainter.strokeCap = StrokeCap.round;
     activePainter.style = PaintingStyle.fill;
 
     inactivePainter.color = pageImageColor;
-    inactivePainter.strokeWidth = 0.7;
+    inactivePainter.strokeWidth = 1;
     inactivePainter.strokeCap = StrokeCap.round;
     inactivePainter.style = PaintingStyle.stroke;
   }
@@ -464,11 +466,11 @@ class _TriangleHeaderIndicatorState extends State<TriangleHeaderIndicator> {
         body: Onboarding(
           swipeableBody: onboardingPagesList,
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           buildHeader:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -483,15 +485,17 @@ class _TriangleHeaderIndicatorState extends State<TriangleHeaderIndicator> {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       index != pagesLength - 1
                           ? _skipButton(setIndex: setIndex)
                           : const SizedBox(width: width),
                       Expanded(
                         child: Container(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          alignment: Alignment.centerLeft,
+                          color: Colors.red,
+                          // Note that the bottom padding must match the wirth of the triangle for transformation
+                          padding: const EdgeInsets.only(bottom: 10, right: 0),
+                          alignment: Alignment.center,
                           child: Indicator<TrianglePainter>(
                             painter: TrianglePainter(
                               currentPageIndex: currentIndex,
@@ -499,7 +503,12 @@ class _TriangleHeaderIndicatorState extends State<TriangleHeaderIndicator> {
                               netDragPercent: dragDistance,
                               activePainter: activePainter,
                               inactivePainter: inactivePainter,
-                              showAllActiveIndicators: true,
+                              showAllActiveIndicators: false,
+                              slideDirection: sd,
+                              rotate: true,
+                              translate: true,
+                              width: 10,
+                              space: 10,
                             ),
                           ),
                         ),
@@ -612,11 +621,11 @@ class _CircleHeaderIndicatorState extends State<CircleHeaderIndicator> {
         body: Onboarding(
           swipeableBody: onboardingPagesList,
           startIndex: 0,
-          onPageChanges: (_, __, currentIndex) {
+          onPageChanges: (_, __, currentIndex, sd) {
             index = currentIndex;
           },
           buildHeader:
-              (context, dragDistance, pagesLength, currentIndex, setIndex) {
+              (context, dragDistance, pagesLength, currentIndex, setIndex, sd) {
             return DecoratedBox(
               decoration: BoxDecoration(
                 color: background,
@@ -645,9 +654,11 @@ class _CircleHeaderIndicatorState extends State<CircleHeaderIndicator> {
                             netDragPercent: dragDistance,
                             activePainter: activePainter,
                             inactivePainter: inactivePainter,
+                            slideDirection: sd,
                             radius: 5.0,
                             space: 10.0,
                             showAllActiveIndicators: true,
+                            translate: true,
                           ),
                         ),
                       ),
@@ -757,11 +768,11 @@ class _SquareHeaderIndicatorState extends State<SquareHeaderIndicator> {
         body: Onboarding(
             swipeableBody: onboardingPagesList,
             startIndex: 0,
-            onPageChanges: (_, __, currentIndex) {
+            onPageChanges: (_, __, currentIndex, sd) {
               index = currentIndex;
             },
-            buildHeader:
-                (context, dragDistance, pagesLength, currentIndex, setIndex) {
+            buildHeader: (context, dragDistance, pagesLength, currentIndex,
+                setIndex, sd) {
               return DecoratedBox(
                 decoration: BoxDecoration(
                   color: background,
@@ -790,9 +801,11 @@ class _SquareHeaderIndicatorState extends State<SquareHeaderIndicator> {
                               netDragPercent: dragDistance,
                               activePainter: activePainter,
                               inactivePainter: inactivePainter,
+                              slideDirection: sd,
                               space: 5,
                               width: 10,
                               showAllActiveIndicators: true,
+                              translate: true,
                             ),
                           ),
                         ),

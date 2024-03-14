@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
+import 'package:onboarding/onboarding.dart';
+import 'package:onboarding/src/main.dart';
 
 class TrianglePainter extends ShapePainter {
   final double space;
   final double width;
+  final bool rotate;
+  final bool translate;
   TrianglePainter({
     required final int pagesLength,
     required final double netDragPercent,
     required final int currentPageIndex,
+    required final SlideDirection slideDirection,
     final Paint? activePainter,
     final Paint? inactivePainter,
     final bool? showAllActiveIndicators,
     this.space = 10.0,
     this.width = 10.0,
+    this.rotate = false,
+    this.translate = false,
   }) : super(
           netDragPercent: netDragPercent,
           pagesLength: pagesLength,
@@ -19,6 +27,7 @@ class TrianglePainter extends ShapePainter {
           activePainter: activePainter,
           currentPageIndex: currentPageIndex,
           showAllActiveIndicators: showAllActiveIndicators,
+          slideDirection: slideDirection,
         );
 
   @override
@@ -27,12 +36,27 @@ class TrianglePainter extends ShapePainter {
   }
 
   @override
+  beforeIndicatorsPaint(Canvas canvas, Size size) {
+    if (translate) {
+      final xTranslation = netDragPercent * pagesLength * (-width - space);
+      canvas.transform(Matrix4.translationValues(xTranslation, 0, 0).storage);
+    }
+    if (rotate) {
+      if (slideDirection == SlideDirection.left_to_right) {
+        final rotate = Matrix4.identity()..rotateZ(math.pi);
+        canvas.translate(0, this.width);
+        canvas.transform(rotate.storage);
+      }
+    }
+  }
+
+  @override
   paintActiveIndicators(Canvas canvas, Size size, Paint paint, Path path) {
     final Offset offset =
-        Offset(netDragPercent * pagesLength * (width + space), 0.0);
+        Offset(netDragPercent * pagesLength * (this.width + space), 0.0);
     path.moveTo(offset.dx, offset.dy);
-    path.lineTo(offset.dx, offset.dy + width);
-    path.lineTo(offset.dx + width, (offset.dy + width) / 2);
+    path.lineTo(offset.dx, offset.dy + this.width);
+    path.lineTo(offset.dx + this.width, (offset.dy + this.width) / 2);
     path.close();
     canvas.drawPath(path, paint);
 
@@ -59,6 +83,7 @@ class TrianglePainter extends ShapePainter {
       path.close();
       offset = Offset(offset.dx + width + space, offset.dy);
     }
+    // canvas.rotate(3.14);
     canvas.drawPath(path, paint);
   }
 }
@@ -66,15 +91,18 @@ class TrianglePainter extends ShapePainter {
 class SquarePainter extends ShapePainter {
   final double space;
   final double width;
+  final bool translate;
   SquarePainter({
     required double netDragPercent,
     required int pagesLength,
     required int currentPageIndex,
+    required final SlideDirection slideDirection,
     final Paint? activePainter,
     final Paint? inactivePainter,
     final bool? showAllActiveIndicators,
     this.space = 10.0,
     this.width = 10.0,
+    this.translate = false,
   }) : super(
           netDragPercent: netDragPercent,
           pagesLength: pagesLength,
@@ -82,6 +110,7 @@ class SquarePainter extends ShapePainter {
           activePainter: activePainter,
           currentPageIndex: currentPageIndex,
           showAllActiveIndicators: showAllActiveIndicators,
+          slideDirection: slideDirection,
         );
 
   @override
@@ -110,6 +139,14 @@ class SquarePainter extends ShapePainter {
   }
 
   @override
+  beforeIndicatorsPaint(Canvas canvas, Size size) {
+    if (translate) {
+      final xTranslation = netDragPercent * pagesLength * (-width - space);
+      canvas.transform(Matrix4.translationValues(xTranslation, 0, 0).storage);
+    }
+  }
+
+  @override
   paintInactiveIndicators(Canvas canvas, Size size, Paint paint, Path path) {
     Offset offset = Offset.zero;
     for (var i = 0; i <= pagesLength - 1; i++) {
@@ -132,15 +169,18 @@ class SquarePainter extends ShapePainter {
 class CirclePainter extends ShapePainter {
   final double radius;
   final double space;
+  final bool translate;
   CirclePainter({
     required double netDragPercent,
     required int pagesLength,
     required int currentPageIndex,
+    required final SlideDirection slideDirection,
     final Paint? activePainter,
     final Paint? inactivePainter,
     final bool? showAllActiveIndicators,
     this.space = 10.0,
     this.radius = 5.0,
+    this.translate = false,
   }) : super(
           netDragPercent: netDragPercent,
           pagesLength: pagesLength,
@@ -148,6 +188,7 @@ class CirclePainter extends ShapePainter {
           inactivePainter: inactivePainter,
           currentPageIndex: currentPageIndex,
           showAllActiveIndicators: showAllActiveIndicators,
+          slideDirection: slideDirection,
         );
 
   @override
@@ -162,6 +203,14 @@ class CirclePainter extends ShapePainter {
         canvas.drawCircle(offset2, radius, paint);
         offset2 = Offset(offset2.dx + radius + space, 0.0);
       }
+    }
+  }
+
+  @override
+  beforeIndicatorsPaint(Canvas canvas, Size size) {
+    if (translate) {
+      final xTranslation = netDragPercent * pagesLength * (-radius - space);
+      canvas.transform(Matrix4.translationValues(xTranslation, 0, 0).storage);
     }
   }
 
@@ -182,14 +231,17 @@ class CirclePainter extends ShapePainter {
 
 class LinePainter extends ShapePainter {
   final double lineWidth;
+  final bool translate;
   LinePainter({
     required final int pagesLength,
     required final double netDragPercent,
     required final int currentPageIndex,
+    required final SlideDirection slideDirection,
     final Paint? activePainter,
     final Paint? inactivePainter,
     final bool? showAllActiveIndicators,
     this.lineWidth = 20.0,
+    this.translate = false,
   }) : super(
           netDragPercent: netDragPercent,
           pagesLength: pagesLength,
@@ -197,11 +249,20 @@ class LinePainter extends ShapePainter {
           activePainter: activePainter,
           currentPageIndex: currentPageIndex,
           showAllActiveIndicators: showAllActiveIndicators,
+          slideDirection: slideDirection,
         );
 
   @override
   bool shouldRepaint(covariant LinePainter oldDelegate) {
     return oldDelegate.lineWidth != this.lineWidth;
+  }
+
+  @override
+  beforeIndicatorsPaint(Canvas canvas, Size size) {
+    if (translate) {
+      final xTranslation = netDragPercent * pagesLength * (-lineWidth);
+      canvas.transform(Matrix4.translationValues(xTranslation, 0, 0).storage);
+    }
   }
 
   @override
@@ -222,6 +283,7 @@ abstract class ShapePainter extends CustomPainter {
   final double netDragPercent;
   final int pagesLength;
   final int currentPageIndex;
+  final SlideDirection slideDirection;
 
   final bool showAllActiveIndicators;
   final Paint activePainter;
@@ -234,6 +296,7 @@ abstract class ShapePainter extends CustomPainter {
     required this.netDragPercent,
     required this.pagesLength,
     required this.currentPageIndex,
+    required this.slideDirection,
     final Paint? activePainter,
     final Paint? inactivePainter,
     final bool? showAllActiveIndicators,
@@ -246,6 +309,7 @@ abstract class ShapePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    this.beforeIndicatorsPaint(canvas, size);
     this.paintInactiveIndicators(canvas, size, inactivePainter, inactivePath);
     this.paintActiveIndicators(canvas, size, activePainter, activePath);
   }
@@ -257,9 +321,11 @@ abstract class ShapePainter extends CustomPainter {
         oldDelegate.currentPageIndex != this.currentPageIndex ||
         oldDelegate.activePainter != this.activePainter ||
         oldDelegate.inactivePainter != this.inactivePainter ||
-        oldDelegate.showAllActiveIndicators != this.showAllActiveIndicators);
+        oldDelegate.showAllActiveIndicators != this.showAllActiveIndicators ||
+        oldDelegate.slideDirection != this.slideDirection);
   }
 
   paintActiveIndicators(Canvas canvas, Size size, Paint paint, Path path);
   paintInactiveIndicators(Canvas canvas, Size size, Paint paint, Path path);
+  beforeIndicatorsPaint(Canvas canvas, Size size) {}
 }

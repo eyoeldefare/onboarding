@@ -2,12 +2,19 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'paint.dart';
 
+enum SlideDirection {
+  left_to_right,
+  right_to_left,
+  none,
+}
+
 typedef Widget BuiltHeader(
   BuildContext context,
   double netDragDistance,
   int pagesLength,
   int currentIndex,
   void Function(int index) setPageIndex,
+  SlideDirection slideDirection,
 );
 
 typedef Widget BuildFooter(
@@ -16,12 +23,14 @@ typedef Widget BuildFooter(
   int pagesLength,
   int currentIndex,
   void Function(int index) setIndex,
+  SlideDirection slideDirection,
 );
 
 typedef void OnPageChanges(
   double netDragDistance,
   int pagesLength,
   int currentIndex,
+  SlideDirection slideDirection,
 );
 
 class Onboarding extends StatefulWidget {
@@ -54,11 +63,11 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late double _finishedDragStartPercent, _finishedDragEndPercent;
   late Offset _dragStartPosition;
   late AnimationController _animationController;
-
+  late SlideDirection _slideDirection;
   @override
   void initState() {
     super.initState();
-
+    _slideDirection = SlideDirection.none;
     _netDragDistancePercent = widget.startIndex / getPagesLength;
 
     _animationController = AnimationController(
@@ -113,6 +122,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     setState(() {
       _netDragDistancePercent = nddp;
     });
+    _setSlideDirection(dragedDistance);
   }
 
   void _onHorizontalDragEnd(DragEndDetails details) {
@@ -122,14 +132,46 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     _animationController.forward(from: 0.0);
     if (widget.onPageChanges != null) {
       widget.onPageChanges!(
-          _netDragDistancePercent, getPagesLength, getCurrentIndex);
+        _netDragDistancePercent,
+        getPagesLength,
+        getCurrentIndex,
+        _slideDirection,
+      );
     }
+  }
+
+  void _setSlideDirection(double dragedDistance) {
+    if (dragedDistance > 0) {
+      _slideDirection = SlideDirection.left_to_right;
+    } else if (dragedDistance < 0) {
+      _slideDirection = SlideDirection.right_to_left;
+    } else {
+      _slideDirection = SlideDirection.none;
+    }
+  }
+
+  void _setIndex(int index) {
+    if (index != getCurrentIndex && index < getPagesLength && index >= 0) {
+      setState(() {
+        _netDragDistancePercent = index / getPagesLength;
+      });
+    }
+    // we could possibly throw exceptions if need be
+    // else {
+    //   throw Exception('#Error');
+    // }
   }
 
   Widget get buildHeader {
     return widget.buildHeader != null
-        ? widget.buildHeader!(context, _netDragDistancePercent, getPagesLength,
-            getCurrentIndex, setIndex)
+        ? widget.buildHeader!(
+            context,
+            _netDragDistancePercent,
+            getPagesLength,
+            getCurrentIndex,
+            _setIndex,
+            _slideDirection,
+          )
         : const SizedBox.shrink();
   }
 
@@ -147,21 +189,15 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
 
   Widget get buildFooter {
     return widget.buildFooter != null
-        ? widget.buildFooter!(context, _netDragDistancePercent, getPagesLength,
-            getCurrentIndex, setIndex)
+        ? widget.buildFooter!(
+            context,
+            _netDragDistancePercent,
+            getPagesLength,
+            getCurrentIndex,
+            _setIndex,
+            _slideDirection,
+          )
         : const SizedBox.shrink();
-  }
-
-  void setIndex(int index) {
-    if (index != getCurrentIndex && index < getPagesLength && index >= 0) {
-      setState(() {
-        _netDragDistancePercent = index / getPagesLength;
-      });
-    }
-    // we could possibly throw exceptions if need be
-    // else {
-    //   throw Exception('#Error');
-    // }
   }
 
   @override
