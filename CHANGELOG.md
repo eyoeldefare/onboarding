@@ -1,3 +1,6 @@
+## [4.0.1] - 3/13/2024
+* Optimise example images
+
 ## [4.0.0] - 3/13/2024
 * Remodeled the whole widget to allow users to use custom indicators
 * Allow a header builder as an option to place indicators and other widgets on top header
